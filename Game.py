@@ -4,6 +4,7 @@ from Board.Maps.FUWMap import FUWMap
 from Sprite.Pacman import Pacman
 from Movement.ChooseDirectionVisitor import ChooseDirectionVisitor
 from Movement.MovementVisitor import MovementVisitor
+from Movement.PacmanMovementSetter.PacmanMovementSetter import PacmanMovementDirectionSetter
 
 pygame.init()
 
@@ -20,6 +21,7 @@ run = True
 
 movement_visitor = MovementVisitor(FUWMap, TILE_SIZE)
 choose_direction_visitor = ChooseDirectionVisitor(FUWMap, TILE_SIZE)
+direction_setter = PacmanMovementDirectionSetter(player)
 
 while run:
     events = pygame.event.get()
@@ -29,15 +31,14 @@ while run:
             run = False
 
         elif event.type == pygame.KEYDOWN:
-            print(event)
             if event.key == pygame.K_w or event.key == pygame.K_UP:
-                choose_direction_visitor.visitPacman(player, "w")
+                direction_setter.set_direction("w")
             elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                choose_direction_visitor.visitPacman(player, "s")
+                direction_setter.set_direction("s")
             elif event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                choose_direction_visitor.visitPacman(player, "a")
+                direction_setter.set_direction("a")
             elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                choose_direction_visitor.visitPacman(player, "d")
+                direction_setter.set_direction("d")
     
     screen.fill(pygame.Color("black"))
 
@@ -46,7 +47,6 @@ while run:
 
     player.draw(screen)
 
-    print(player.x)
     movement_visitor.visitPacman(player)
     pygame.display.update()
     dt = clock.tick(42)
