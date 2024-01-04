@@ -4,7 +4,7 @@ class Pacman():
     def __init__(self, x, y, tile_size):
         self.__x = x
         self.__y = y
-        self.__direction = "Right"
+        self.__direction = "Up"
         self.__next_direction = "Down"
         self.__score = 0
         self.__tile_size = tile_size
@@ -17,8 +17,8 @@ class Pacman():
         score_box = score_text.render(f'SCORE: {self.__score}', True, (255,255,255))
         screen.blit(score_box, (20, self.__tile_size * 30 + 5))
 
-    def accept_director_changer_visitor(self, visitor, key):
-        visitor.visitPacman(self, key)
+    def accept_director_changer_visitor(self, visitor):
+        visitor.visitPacman(self)
 
     def accept_movement_visitor(self, visitor):
         visitor.visitPacman(self)

@@ -1,4 +1,4 @@
-from Movement.PacmanMovementSetter.AbstractPacmanDirectionSetterCommand import AbstractPacmanDirectionSetterCommand
+from Movement.PacmanMovementDirectionSetter.AbstractPacmanDirectionSetterCommand import AbstractPacmanDirectionSetterCommand
 
 class DownDirectionSetterCommand(AbstractPacmanDirectionSetterCommand):
     def __init__(self, pacman):
