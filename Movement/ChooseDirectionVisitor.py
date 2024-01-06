@@ -3,11 +3,12 @@ from Sprite.Pacman import Pacman
 from Sprite.Hunter import Hunter
 from Movement.ChagneDirectionVisitor.CheckOpposite import check_oposite
 from Movement.ChagneDirectionVisitor.DirectionChangePossibility import check_direction_change_possibility
-
+ 
 class ChooseDirectionVisitor(AbstractMovementVisitor):
-    def __init__(self, map, title_size):
+    def __init__(self, map, title_size, pacman):
         self.__map = map
         self.__title_size = title_size
+        self.__pacman = pacman
     
     def visitPacman(self, pacman: Pacman):
 
@@ -20,4 +21,5 @@ class ChooseDirectionVisitor(AbstractMovementVisitor):
             pacman.next_direction = "None"
     
     def visitHunter(self, hunter: Hunter):
-        pass
+        if (hunter.x-11) % self.__title_size == 0 and (hunter.y-11) % self.__title_size == 0:
+            hunter.strategy.choose_direction(hunter, self.__pacman, self.__title_size, self.__map)

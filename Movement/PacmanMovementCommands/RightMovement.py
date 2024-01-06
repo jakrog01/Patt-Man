@@ -11,13 +11,17 @@ class RightCommand(AbstractPacmanMovementCommand):
         if pacman.x % tile_size < 11:
             pacman.x = pacman.x + self.__speed
 
-        elif pacman.x > tile_size * len(map) - 12:
-            pacman.x = 12       
+        elif pacman.x > tile_size * len(map) - 11:
+            if map[y][x] == 9 and (pacman.x - 7) % tile_size == 0:
+                pacman.score = pacman.score + 10
+                map[y][x] = 0
+
+            pacman.x = 5       
 
         elif map[y][x+1] == 0 or map[y][x+1] == 9:
             pacman.x = pacman.x + self.__speed
         
 
-        if map[y][x] == 9 and (pacman.x+3) % tile_size == 0:
+        if map[y][x] == 9 and (pacman.x+ - 7) % tile_size == 0:
             pacman.score = pacman.score + 10
             map[y][x] = 0

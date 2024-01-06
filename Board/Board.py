@@ -26,3 +26,19 @@ class Board():
         for i in range(30):
             for j in range(30):
                 self.__tile_drawer.draw_tile(win, self.__map[i][j], i, j)
+
+    @staticmethod
+    def check_collisions(pacman, list, tile_size):
+        x = int(pacman.x // tile_size)
+        y = int(pacman.y // tile_size)
+
+        for element in list:
+            ghost_x = (element.x // tile_size)
+            ghost_y = (element.y // tile_size)
+
+            if ghost_x == x and ghost_y == y:
+                return True
+            
+        return False
+            
+

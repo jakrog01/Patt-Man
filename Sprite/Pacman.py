@@ -5,7 +5,7 @@ class Pacman():
         self.__x = x
         self.__y = y
         self.__direction = "Up"
-        self.__next_direction = "Down"
+        self.__next_direction = "Up"
         self.__score = 0
         self.__tile_size = tile_size
 

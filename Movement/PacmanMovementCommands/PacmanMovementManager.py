@@ -4,7 +4,7 @@ from Movement.PacmanMovementCommands.RightMovement import RightCommand
 from Movement.PacmanMovementCommands.LeftMovement import LeftCommand
 from Movement.PacmanMovementCommands.AbstractPacmanMovementCommand import AbstractPacmanMovementCommand
 
-class MovementManager():
+class PacmanMovementManager():
     def __init__(self, map, tile_size):
         self.__map = map
         self.__tile_size = tile_size

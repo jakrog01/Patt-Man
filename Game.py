@@ -2,6 +2,8 @@ import pygame
 from Board.Board import Board
 from Board.Maps.FUWMap import FUWMap
 from Sprite.Pacman import Pacman
+from Sprite.Hunter import Hunter
+
 from Movement.ChooseDirectionVisitor import ChooseDirectionVisitor
 from Movement.MovementVisitor import MovementVisitor
 from Movement.PacmanMovementDirectionSetter.PacmanMovementSetter import PacmanMovementDirectionSetter
@@ -16,16 +18,17 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 map = Board(FUWMap, TILE_SIZE)
-player = Pacman(32, 32, TILE_SIZE)
+player = Pacman(242, 263, TILE_SIZE)
+ghosts = [Hunter(32,32, TILE_SIZE, FUWMap)]
 run = True
 
 movement_visitor = MovementVisitor(FUWMap, TILE_SIZE)
-choose_direction_visitor = ChooseDirectionVisitor(FUWMap, TILE_SIZE)
+choose_direction_visitor = ChooseDirectionVisitor(FUWMap, TILE_SIZE, player)
 direction_setter = PacmanMovementDirectionSetter(player)
 
 while run:
     events = pygame.event.get()
-
+    
     for event in events:
         if event.type == pygame.QUIT:
             run = False
@@ -39,20 +42,26 @@ while run:
                 direction_setter.set_direction("a")
             elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                 direction_setter.set_direction("d")
-    
+
+    screen.fill(pygame.Color("black"))
+
     player.accept_director_changer_visitor(choose_direction_visitor)
     player.accept_movement_visitor(movement_visitor)
-    
-    print(player.x)
-    screen.fill(pygame.Color("black"))
 
     map.draw_map(screen)
     player.display_score(screen)
 
-    player.draw(screen)
+    for ghost in ghosts:
+        ghost.accept_director_changer_visitor(choose_direction_visitor)
+        ghost.accept_movement_visitor(movement_visitor)
+        ghost.draw(screen)
 
-    print(player.direction)
+    player.draw(screen)
+    
     pygame.display.update()
-    dt = clock.tick(42)
+    dt = clock.tick(120)
+
+    if Board.check_collisions(player, ghosts, TILE_SIZE):
+        run = False
 
 pygame.quit()
