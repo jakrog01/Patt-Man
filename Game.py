@@ -73,8 +73,8 @@ while run:
             ghost.change_strategy()
 
         last_strategy_change_time = current_time
-        if change_strategy_time == 7000:
-            change_strategy_time = 20000
+        if change_strategy_time == 7000 or change_strategy_time == 5000:
+            change_strategy_time = 25000
         else:
             change_strategy_time = 5000
 
