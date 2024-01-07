@@ -8,6 +8,7 @@ class Pacman():
         self.__next_direction = "Up"
         self.__score = 0
         self.__tile_size = tile_size
+        self.__lives = 2
 
     def draw(self, win):
         pygame.draw.circle(win, "yellow", (self.__x, self.__y), int(self.__tile_size//2) + 3)
@@ -16,6 +17,11 @@ class Pacman():
         score_text = pygame.font.SysFont('didot.ttc', 20)
         score_box = score_text.render(f'SCORE: {self.__score}', True, (255,255,255))
         screen.blit(score_box, (20, self.__tile_size * 30 + 5))
+    
+    def display_lives(self, screen):
+        lives_text = pygame.font.SysFont('didot.ttc', 20)
+        lives_box = lives_text.render(f'LIVES: {self.__lives}', True, (255,255,255))
+        screen.blit(lives_box, (550, self.__tile_size * 30 + 5))
 
     def accept_director_changer_visitor(self, visitor):
         visitor.visitPacman(self)
@@ -34,6 +40,14 @@ class Pacman():
     @property
     def direction(self):
         return self.__direction
+    
+    @property
+    def lives(self):
+        return self.__lives
+    
+    @lives.setter
+    def lives(self, value):
+        self.__lives = value
     
     @direction.setter
     def direction(self, newdirection):

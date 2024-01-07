@@ -40,5 +40,13 @@ class Board():
                 return True
             
         return False
-            
+    
+    @staticmethod
+    def place_in_starting_positions(pacman, ghost_list, tile_size, position_list):
+        pacman.y = int(position_list[0][0] * tile_size) + 11
+        pacman.x = int(position_list[0][1] * tile_size) + 11
+
+        for index, ghost in enumerate(ghost_list):
+            ghost.y = int(position_list[index+1][0] * tile_size) + 11
+            ghost.x = int(position_list[index+1][1] * tile_size) + 11
 

@@ -1,6 +1,6 @@
 import pygame
 from Board.Board import Board
-from Board.Maps.FUWMap import FUWMap
+from Board.Maps.FUWMap import FUWMap, start_points
 from Sprite.Pacman import Pacman
 from Sprite.Hunter import Hunter
 from Sprite.Traper import Traper
@@ -10,7 +10,6 @@ from Movement.MovementVisitor import MovementVisitor
 from Movement.PacmanMovementDirectionSetter.PacmanMovementSetter import PacmanMovementDirectionSetter
 
 pygame.init()
-
 WIDTH = 630
 HEIGHT = 670
 TILE_SIZE= WIDTH / len(FUWMap) 
@@ -19,8 +18,10 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 map = Board(FUWMap, TILE_SIZE)
-player = Pacman(242, 263, TILE_SIZE)
-ghosts = [Hunter(32,32, TILE_SIZE, FUWMap), Traper(263,74, TILE_SIZE, FUWMap)]
+player = Pacman(0, 0, TILE_SIZE)
+ghosts = [Hunter(0,0, TILE_SIZE, FUWMap), Traper(0,0, TILE_SIZE, FUWMap)]
+
+Board.place_in_starting_positions(player, ghosts, TILE_SIZE, start_points)
 
 movement_visitor = MovementVisitor(FUWMap, TILE_SIZE)
 choose_direction_visitor = ChooseDirectionVisitor(FUWMap, TILE_SIZE, player)
@@ -55,6 +56,7 @@ while run:
 
     map.draw_map(screen)
     player.display_score(screen)
+    player.display_lives(screen)
 
     for ghost in ghosts:
         ghost.accept_director_changer_visitor(choose_direction_visitor)
@@ -79,6 +81,16 @@ while run:
             change_strategy_time = 5000
 
     if Board.check_collisions(player, ghosts, TILE_SIZE):
-        run = False
+        player.lives = player.lives-1
+        if player.lives == 0:
+            run = False
+        else:
+            Board.place_in_starting_positions(player, ghosts, TILE_SIZE, start_points)
+            start_freeze = pygame.time.get_ticks()
+            freeze = True
+            while freeze:
+                time = pygame.time.get_ticks()
+                if time - start_freeze > 2000:
+                    freeze = False
 
 pygame.quit()
