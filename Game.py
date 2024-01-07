@@ -29,7 +29,7 @@ direction_setter = PacmanMovementDirectionSetter(player)
 
 run = True
 
-change_strategy_time = 7000
+change_strategy_time = 2000
 last_strategy_change_time = pygame.time.get_ticks()
 
 while run:
@@ -75,7 +75,7 @@ while run:
             ghost.change_strategy()
 
         last_strategy_change_time = current_time
-        if change_strategy_time == 7000 or change_strategy_time == 5000:
+        if change_strategy_time == 2000 or change_strategy_time == 5000:
             change_strategy_time = 25000
         else:
             change_strategy_time = 5000
@@ -92,5 +92,11 @@ while run:
                 time = pygame.time.get_ticks()
                 if time - start_freeze > 2000:
                     freeze = False
+    
+    condition = False
+    for line in FUWMap:
+        if 9 in line:
+            condition = True
+    run = condition
 
 pygame.quit()
