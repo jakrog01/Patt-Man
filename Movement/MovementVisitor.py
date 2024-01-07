@@ -3,6 +3,7 @@ from Movement.PacmanMovementCommands.PacmanMovementManager import PacmanMovement
 from Movement.GhostsMovementCommands.GhostMovementManager import GhostsMovementManager
 from Sprite.Pacman import Pacman
 from Sprite.Hunter import Hunter
+from Sprite.Traper import Traper
 
 class MovementVisitor(AbstractMovementVisitor):
     def __init__(self, map, title_size):
@@ -18,3 +19,6 @@ class MovementVisitor(AbstractMovementVisitor):
 
     def visitHunter(self, hunter: Hunter):
         self.__ghost_manager.move(hunter)
+
+    def visitTraper(self, traper: Traper):
+        self.__ghost_manager.move(traper)

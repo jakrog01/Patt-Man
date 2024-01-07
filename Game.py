@@ -3,6 +3,7 @@ from Board.Board import Board
 from Board.Maps.FUWMap import FUWMap
 from Sprite.Pacman import Pacman
 from Sprite.Hunter import Hunter
+from Sprite.Traper import Traper
 
 from Movement.ChooseDirectionVisitor import ChooseDirectionVisitor
 from Movement.MovementVisitor import MovementVisitor
@@ -19,12 +20,16 @@ clock = pygame.time.Clock()
 
 map = Board(FUWMap, TILE_SIZE)
 player = Pacman(242, 263, TILE_SIZE)
-ghosts = [Hunter(32,32, TILE_SIZE, FUWMap)]
-run = True
+ghosts = [Hunter(32,32, TILE_SIZE, FUWMap), Traper(263,74, TILE_SIZE, FUWMap)]
 
 movement_visitor = MovementVisitor(FUWMap, TILE_SIZE)
 choose_direction_visitor = ChooseDirectionVisitor(FUWMap, TILE_SIZE, player)
 direction_setter = PacmanMovementDirectionSetter(player)
+
+run = True
+
+change_strategy_time = 7000
+last_strategy_change_time = pygame.time.get_ticks()
 
 while run:
     events = pygame.event.get()
@@ -59,7 +64,19 @@ while run:
     player.draw(screen)
     
     pygame.display.update()
-    dt = clock.tick(120)
+    dt = clock.tick(90)
+
+    current_time = pygame.time.get_ticks()
+    elapsed_time = current_time - last_strategy_change_time
+    if elapsed_time >= change_strategy_time:
+        for ghost in ghosts:
+            ghost.change_strategy()
+
+        last_strategy_change_time = current_time
+        if change_strategy_time == 7000:
+            change_strategy_time = 20000
+        else:
+            change_strategy_time = 5000
 
     if Board.check_collisions(player, ghosts, TILE_SIZE):
         run = False

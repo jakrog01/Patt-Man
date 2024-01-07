@@ -1,20 +1,21 @@
 import pygame
 from Sprite.AbstractGhost import AbstractGhost
-from Movement.GhostsStrategies.HunterStrategies.HunterNormalStrategy import HunterNormalStrategy
-from Movement.GhostsStrategies.HunterStrategies.HunterDispersionStrategy import HunterDispersionStrategy
+from Movement.GhostsStrategies.TraperStrategies.TraperNormalStrategy import TraperNormalStrategy
+from Movement.GhostsStrategies.TraperStrategies.TraperDispersionStrategy import TraperDispersionStrategy
 
-class Hunter(AbstractGhost):
+
+class Traper(AbstractGhost):
     def __init__(self, x, y, tile_size, map):
         self.__x = x
         self.__y = y
-        self.__strategy = HunterDispersionStrategy()
+        self.__strategy = TraperDispersionStrategy()
         self.__direction = "None"
         self.__tile_size = tile_size
         self.__map = map
         self.__score = 0
 
     def draw(self, win):
-        pygame.draw.circle(win, "red", (self.__x, self.__y), int(self.__tile_size//2) + 5)
+        pygame.draw.circle(win, "pink", (self.__x, self.__y), int(self.__tile_size//2) + 5)
 
     @property
     def x(self):
@@ -45,11 +46,11 @@ class Hunter(AbstractGhost):
         return self.__strategy
     
     def change_strategy(self):
-        if isinstance(self.__strategy, HunterNormalStrategy):
-            self.__strategy = HunterDispersionStrategy()
+        if isinstance(self.__strategy, TraperNormalStrategy):
+            self.__strategy = TraperDispersionStrategy()
 
-        elif isinstance(self.__strategy, HunterDispersionStrategy):
-            self.__strategy = HunterNormalStrategy()
+        elif isinstance(self.__strategy, TraperDispersionStrategy):
+            self.__strategy = TraperNormalStrategy()
 
     @property
     def score(self):
@@ -60,7 +61,7 @@ class Hunter(AbstractGhost):
         self.__score = newscore
 
     def accept_director_changer_visitor(self, visitor):
-        visitor.visitHunter(self)
+        visitor.visitTraper(self)
 
     def accept_movement_visitor(self, visitor):
-        visitor.visitHunter(self)
+        visitor.visitTraper(self)

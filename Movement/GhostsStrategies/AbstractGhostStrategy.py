@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class AbstractHunterStrategy():
+class AbstractGhostStrategy():
     @abstractmethod
     def choose_direction():
         pass
