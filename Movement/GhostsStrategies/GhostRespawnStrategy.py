@@ -1,5 +1,5 @@
 from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrategy
-from Movement.GhostsStrategies.GhostDispersionStrategy import GhostDispersionStrategy
+from Movement.GhostsStrategies.GhostLeaveHouseStrategy import GhostLeaveHouseStrategy
 
 class GhostRespawnStrategy(AbstractGhostStrategy):
     def choose_direction(self, ghost, pacman, tile_size, map, distx, disty):
@@ -10,16 +10,13 @@ class GhostRespawnStrategy(AbstractGhostStrategy):
         destination_x = ghost.respawn_x
         destination_y = ghost.respawn_y
 
-        print(ghost_x, ghost_y)
-        print(destination_x, destination_y)
-
         distance = 1000000
         new_direction = "None"
 
         if ghost.direction != "Down":
             if map[ghost_y-1][ghost_x] == 9 or map[ghost_y-1][ghost_x] == 0 or map[ghost_y-1][ghost_x] == 7 or map[ghost_y+1][ghost_x] == 8:
                 new_distance = (ghost_x - destination_x)**2 + ((ghost_y-1) - destination_y)**2
-                if new_distance < distance :
+                if new_distance < distance:
                     new_direction = "Up"
                     distance = new_distance
 
@@ -50,5 +47,6 @@ class GhostRespawnStrategy(AbstractGhostStrategy):
 
         if ghost_x == destination_x and ghost_y == destination_y:
             ghost.enter_predator_mode()
+            ghost.strategy = GhostLeaveHouseStrategy()
         
             

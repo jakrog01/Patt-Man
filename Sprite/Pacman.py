@@ -14,6 +14,8 @@ class Pacman():
         self.__counter = 0
         self.__kill_streak = 0
 
+        self.__stepper = 0
+
     def enter_predator_mode(self):
         self.__state = "Predator"
         self.__kill_streak = 0
@@ -23,15 +25,29 @@ class Pacman():
         self.__state = "Prey"
 
     def draw(self, win):
-        pygame.draw.circle(win, "yellow", (self.__x, self.__y), int(self.__tile_size//2) + 3)
-    
+        graphic = int(self.__stepper // 10)
+        rot = self.__rotation[self.direction]
+
+        rotated_image = pygame.transform.rotate(self.__pictures[graphic], rot)
+        rotated_rect = rotated_image.get_rect(center=(self.__x, self.__y))
+        win.blit(rotated_image, rotated_rect.topleft)
+
+        self.__stepper += 1
+        if self.__stepper > 39:
+            self.__stepper = 0
+
+
+    def load_graphics(self, one, two, three, four):
+        self.__pictures = {0: one, 1: two, 2: three, 3: four}
+        self.__rotation = {"Right": 0, "Up": 90, "Left": 180, "Down": 270}
+
     def display_score(self, screen):
-        score_text = pygame.font.SysFont('didot.ttc', 20)
+        score_text =pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 15)
         score_box = score_text.render(f'SCORE: {self.__score}', True, (255,255,255))
         screen.blit(score_box, (20, self.__tile_size * 30 + 5))
     
     def display_lives(self, screen):
-        lives_text = pygame.font.SysFont('didot.ttc', 20)
+        lives_text = pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 15)
         lives_box = lives_text.render(f'LIVES: {self.__lives}', True, (255,255,255))
         screen.blit(lives_box, (550, self.__tile_size * 30 + 5))
 

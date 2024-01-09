@@ -9,9 +9,10 @@ from Sprite.GhostMakers.ClairvoyantMaker import ClairvoyantMaker
 from Sprite.GhostMakers.TraperMaker import TraperMaker
 from Movement.GhostsStrategies.GhostHouseStrategy import GhostHouseStrategy
 from Movement.GhostsStrategies.GhostDispersionStrategy import GhostDispersionStrategy
+from Movement.GhostsStrategies.GhostLeaveHouseStrategy import GhostLeaveHouseStrategy
 from Movement.ChooseDirectionVisitor import ChooseDirectionVisitor
 from Movement.MovementVisitor import MovementVisitor
-from Sprite.GhostMakers.SpecialGraphicsLoaderVisitor import SpecialGraphicLoaderVisitor
+from Sprite.Graphics.SpecialGraphicsLoaderVisitor import SpecialGraphicLoaderVisitor
 from Movement.PacmanMovementDirectionSetter.PacmanMovementSetter import PacmanMovementDirectionSetter
 
 pygame.init()
@@ -26,6 +27,8 @@ map = Board(FUWMap, TILE_SIZE)
 player = Pacman(0, 0, TILE_SIZE)
 
 graphic_loader = SpecialGraphicLoaderVisitor()
+
+graphic_loader.visit_pacman(player)
 
 ghost_factory = GhostFactory()
 ghost_factory.add("HUNTER", HunterMaker())
@@ -50,6 +53,7 @@ direction_setter = PacmanMovementDirectionSetter(player)
 
 run = True
 dead = False
+exit = True
 
 change_strategy_time = 2000
 last_strategy_change_time = pygame.time.get_ticks()
@@ -59,6 +63,7 @@ while run:
     for event in events:
         if event.type == pygame.QUIT:
             run = False
+            exit = False
 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w or event.key == pygame.K_UP:
@@ -81,11 +86,11 @@ while run:
 
     if player.score > 150 and isinstance(ghosts[1].strategy, GhostHouseStrategy):
         ghosts[1].state = "Predator"
-        ghosts[1].strategy = GhostDispersionStrategy()
+        ghosts[1].strategy = GhostLeaveHouseStrategy()
 
     elif player.score > 650 and isinstance(ghosts[2].strategy, GhostHouseStrategy):
         ghosts[2].state = "Predator"
-        ghosts[2].strategy = GhostDispersionStrategy()
+        ghosts[2].strategy = GhostLeaveHouseStrategy()
 
     for ghost in ghosts:
         ghost.accept_director_changer_visitor(choose_direction_visitor)
@@ -123,7 +128,6 @@ while run:
             for ghost in ghosts:
                 if ghost.state == "Predator":
                     ghost.strategy = GhostDispersionStrategy()
-
             change_strategy_time = 5000
 
 
@@ -133,7 +137,7 @@ while run:
     if player.counter > 0:
         current_time = pygame.time.get_ticks()
         elapsed_predator_time = current_time - start_predator_time
-        
+
         if elapsed_predator_time >= 8000:
             player.enter_prey_mode()
             for ghost in ghosts:
@@ -143,6 +147,7 @@ while run:
 
     if Board.check_collisions(player, ghosts, TILE_SIZE):
         player.lives = player.lives-1
+        dead = True
         if player.lives == 0:
             run = False
         else:
@@ -153,7 +158,6 @@ while run:
                 time = pygame.time.get_ticks()
                 if time - start_freeze > 500:
                     freeze = False
-                    dead = True
     
     if run != False:
         condition = False
@@ -162,5 +166,36 @@ while run:
             if 9 in line:
                 condition = True
         run = condition
+
+if exit:
+    run = True
+    while run:
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                run = False
+        
+        screen.fill(pygame.Color("black"))
+
+        if dead:
+            text = "LOST"
+        else:
+            text = "WIN"
+        
+        end_text = pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 80)
+        end_box = end_text.render(f'YOU {text}', True, (255, 255, 255))
+        end_text_rect = end_box.get_rect()
+        end_text_rect.center = (WIDTH // 2, HEIGHT // 2 - 55)
+        screen.blit(end_box, end_text_rect.topleft)
+
+        score_text = pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 85)
+        score_box = score_text.render(f'SCORE: {player.score}', True, (255, 255, 255))
+        score_text_rect = score_box.get_rect()
+        score_text_rect.center = (WIDTH // 2, HEIGHT // 2 + 50)
+        screen.blit(score_box, score_text_rect.topleft)
+
+        pygame.display.update()
+        dt = clock.tick(90)
+
 
 pygame.quit()

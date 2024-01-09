@@ -9,7 +9,7 @@ from Tiles.BoostTile import BoostTile
 from Tiles.PointTile import PointTile
 from Tiles.BarierTile import BarierTile
 
-from Movement.GhostsStrategies.GhostDispersionStrategy import GhostDispersionStrategy
+from Movement.GhostsStrategies.GhostLeaveHouseStrategy import GhostLeaveHouseStrategy
 
 class Board():
     def __init__(self, map, tile_size) -> None:
@@ -56,10 +56,13 @@ class Board():
         pacman.y = int((position_list[0][0]-1) * tile_size) + 11
         pacman.x = int((position_list[0][1]-1) * tile_size) + 11
 
+        pacman.direction = "Right"
+
         for index, ghost in enumerate(ghost_list):
             ghost.y = int((position_list[index+1][0] - 1) * tile_size) + 11
             ghost.x = int((position_list[index+1][1] -1) * tile_size) + 11
 
             if ghost.state != "Home":
                 ghost.enter_predator_mode()
+                ghost.strategy = GhostLeaveHouseStrategy()
 
