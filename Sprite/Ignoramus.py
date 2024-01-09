@@ -1,24 +1,24 @@
 import pygame
 from Sprite.AbstractGhost import AbstractGhost
-from Movement.GhostsStrategies.TraperStrategies.TraperNormalStrategy import TraperNormalStrategy
+from Movement.GhostsStrategies.IgnoramusStrategies.IgnoramusNormalStrategy import IgnoramusNormalStrategy
 from Movement.GhostsStrategies.GhostDispersionStrategy import GhostDispersionStrategy
-from Movement.GhostsStrategies.GhostHouseStrategy import GhostHouseStrategy
 from Movement.GhostsStrategies.GhostPanicStrategy import GhostPanicStrategy
+from Movement.GhostsStrategies.GhostHouseStrategy import GhostHouseStrategy
 from Movement.GhostsStrategies.GhostRespawnStrategy import GhostRespawnStrategy
 
-class Traper(AbstractGhost):
+class Ignoramus(AbstractGhost):
     def __init__(self, x, y, respawn_point, tile_size, map, picture):
         self.__x = x
         self.__y = y
         self.__respawn_y = respawn_point[0]
         self.__respawn_x = respawn_point[1]
-
+        
         self.__strategy = GhostHouseStrategy()
         self.__direction = "Right"
         self.__tile_size = tile_size
         self.__map = map
         self.__score = 0
-
+        
         self.__normal_picture = picture
         self.__dead_picture = None
         self.__panic_picture = None
@@ -29,10 +29,13 @@ class Traper(AbstractGhost):
 
         self.__speed = 1
 
+    def draw(self, win):
+        win.blit(self.__picture, (self.__x - 16, self.__y-16))
+
     def load_grpahics(self, panic, dead):
         self.__panic_picture = panic
         self.__dead_picture = dead
-    
+
     def inverse_direction(self):
         self.__direction = self.__inverter[self.__direction]
 
@@ -44,13 +47,12 @@ class Traper(AbstractGhost):
         self.__speed = 0.5
 
     def enter_predator_mode(self):
-        if self.state == "Prey":
-            self.inverse_direction()
-
         self.__x = round(self.__x)
         self.__y = round(self.__y)
 
-        self.__strategy = TraperNormalStrategy()
+        if self.state == "Prey":
+            self.inverse_direction()
+        self.__strategy = IgnoramusNormalStrategy()
         self.__picture = self.__normal_picture
         self.__state = "Predator"
         self.__speed = 1
@@ -63,13 +65,7 @@ class Traper(AbstractGhost):
         self.__picture = self.__dead_picture
         self.__state = "Dead"
         self.__speed = 1
-
-    def draw(self, win):
-        win.blit(self.__picture, (self.__x - 16, self.__y-16))
-
-    def set_hunter(self, hunter):
-        self.__hunter = hunter
-
+        
     @property
     def respawn_x(self):
         return self.__respawn_x
@@ -98,10 +94,6 @@ class Traper(AbstractGhost):
         self.__picture = newpicture
 
     @property
-    def hunter(self):
-        return self.__hunter
-
-    @property
     def x(self):
         return self.__x
     
@@ -128,11 +120,11 @@ class Traper(AbstractGhost):
     @property
     def strategy(self):
         return self.__strategy
-    
+
     @strategy.setter
     def strategy(self, newstrategy):
         self.__strategy = newstrategy
-
+    
     @property
     def score(self):
         return self.__score
@@ -140,7 +132,7 @@ class Traper(AbstractGhost):
     @score.setter
     def score(self, newscore):
         self.__score = newscore
-
+    
     @property
     def state(self):
         return self.__state
@@ -158,10 +150,10 @@ class Traper(AbstractGhost):
         self.__speed = new_speed
 
     def accept_director_changer_visitor(self, visitor):
-        visitor.visit_traper(self)
+        visitor.visit_ignoramus(self)
 
     def accept_movement_visitor(self, visitor):
         visitor.visit_ghost(self)
-    
+
     def accept_graphic_loader_visitor(self, visitor):
         visitor.visit_ghost(self)

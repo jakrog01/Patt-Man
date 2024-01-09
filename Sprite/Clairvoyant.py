@@ -126,9 +126,6 @@ class Clairvoyant(AbstractGhost):
     def strategy(self, newstrategy):
         self.__strategy = newstrategy
 
-    def set_normal_strategy(self):
-        self.__strategy = ClairvoyantNormalStrategy()
-
     @property
     def score(self):
         return self.__score

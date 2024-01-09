@@ -65,4 +65,5 @@ class Board():
             if ghost.state != "Home":
                 ghost.enter_predator_mode()
                 ghost.strategy = GhostLeaveHouseStrategy()
+                ghost.state = "Escape"
 

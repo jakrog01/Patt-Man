@@ -20,7 +20,7 @@ class LeftCommand(AbstractPacmanMovementCommand):
         
         elif map[y][x] == 8 and (pacman.x + 7) % tile_size == 0:
             for ghost in ghosts:
-                if ghost.state != "Home" and ghost.state != "Dead":
+                if ghost.state == "Predator":
                     ghost.enter_prey_mode()
 
             pacman.enter_predator_mode()

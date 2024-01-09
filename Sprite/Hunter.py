@@ -13,7 +13,7 @@ class Hunter(AbstractGhost):
         self.__respawn_x = respawn_point[1]
         
         self.__strategy = HunterNormalStrategy()
-        self.__direction = "None"
+        self.__direction = "Right"
         self.__tile_size = tile_size
         self.__map = map
         self.__score = 0

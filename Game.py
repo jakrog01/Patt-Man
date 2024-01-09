@@ -5,6 +5,7 @@ from Sprite.Pacman import Pacman
 from Sprite.Traper import Traper
 from Sprite.GhostFactory import GhostFactory
 from Sprite.GhostMakers.HunterMaker import HunterMaker
+from Sprite.GhostMakers.IgnoramusMaker import IgnoramusMaker
 from Sprite.GhostMakers.ClairvoyantMaker import ClairvoyantMaker
 from Sprite.GhostMakers.TraperMaker import TraperMaker
 from Movement.GhostsStrategies.GhostHouseStrategy import GhostHouseStrategy
@@ -34,7 +35,8 @@ ghost_factory = GhostFactory()
 ghost_factory.add("HUNTER", HunterMaker())
 ghost_factory.add("CLAIRVOYANT", ClairvoyantMaker())
 ghost_factory.add("TRAPER", TraperMaker())
-ghosts_to_make = ["HUNTER", "CLAIRVOYANT", "TRAPER"]
+ghost_factory.add("IGNORAMUS", IgnoramusMaker())
+ghosts_to_make = ["HUNTER", "CLAIRVOYANT", "TRAPER", "IGNORAMUS"]
 
 ghosts = []
 for index, key in enumerate(ghosts_to_make):
@@ -91,6 +93,10 @@ while run:
     elif player.score > 650 and isinstance(ghosts[2].strategy, GhostHouseStrategy):
         ghosts[2].state = "Predator"
         ghosts[2].strategy = GhostLeaveHouseStrategy()
+    
+    elif player.score > 1500 and isinstance(ghosts[3].strategy, GhostHouseStrategy):
+        ghosts[3].state = "Predator"
+        ghosts[3].strategy = GhostLeaveHouseStrategy()
 
     for ghost in ghosts:
         ghost.accept_director_changer_visitor(choose_direction_visitor)
@@ -121,7 +127,7 @@ while run:
         if change_strategy_time == 2000 or change_strategy_time == 5000:
             for ghost in ghosts:
                 if ghost.state == "Predator":
-                    ghost.set_normal_strategy()
+                    ghost.enter_predator_mode()
             change_strategy_time = 25000
 
         else:
@@ -183,13 +189,13 @@ if exit:
             text = "WIN"
         
         end_text = pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 80)
-        end_box = end_text.render(f'YOU {text}', True, (255, 255, 255))
+        end_box = end_text.render(f'YOU {text}', True, (255, 0, 0))
         end_text_rect = end_box.get_rect()
         end_text_rect.center = (WIDTH // 2, HEIGHT // 2 - 55)
         screen.blit(end_box, end_text_rect.topleft)
 
         score_text = pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 85)
-        score_box = score_text.render(f'SCORE: {player.score}', True, (255, 255, 255))
+        score_box = score_text.render(f'SCORE: {player.score + player.lives*400}', True, (255, 255, 0))
         score_text_rect = score_box.get_rect()
         score_text_rect.center = (WIDTH // 2, HEIGHT // 2 + 50)
         screen.blit(score_box, score_text_rect.topleft)
