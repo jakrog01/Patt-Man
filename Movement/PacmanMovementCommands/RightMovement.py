@@ -19,7 +19,7 @@ class RightCommand(AbstractPacmanMovementCommand):
             pacman.score = pacman.score + 10
             map[y][x] = 0
 
-        if map[y][x] == 10 and (pacman.x - 20) % tile_size == 0:
+        if map[y][x] == 10 and (pacman.x - 7) % tile_size == 0:
             pacman.score = pacman.score + 1000
             map[y][x] = 0
 

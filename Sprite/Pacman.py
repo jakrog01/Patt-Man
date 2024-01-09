@@ -26,11 +26,16 @@ class Pacman():
 
     def draw(self, win: pygame.surface):
         graphic = int(self.__stepper // 10)
-        rot = self.__rotation[self.direction]
+        rot = self.__rotation[self.direction][0]
+        flip = self.__rotation[self.direction][1]
+
+        print(rot, flip)
 
         rotated_image = pygame.transform.rotate(self.__pictures[graphic], rot)
-        rotated_rect = rotated_image.get_rect(center=(self.__x, self.__y))
-        win.blit(rotated_image, rotated_rect.topleft)
+        fliped_image = pygame.transform.flip(rotated_image, flip[0], flip[1])
+        rotated_rect = fliped_image.get_rect(center=(self.__x, self.__y))
+
+        win.blit(fliped_image, rotated_rect.topleft)
 
         self.__stepper += 1
         if self.__stepper > 39:
@@ -38,7 +43,7 @@ class Pacman():
 
     def load_graphics(self, one: pygame.image, two: pygame.image, three: pygame.image, four: pygame.image):
         self.__pictures = {0: one, 1: two, 2: three, 3: four}
-        self.__rotation = {"Right": 0, "Up": 90, "Left": 180, "Down": 270}
+        self.__rotation = {"Right": (0, (False,False)), "Up": (90, (True, False)), "Left": (180, (False, True)), "Down": (270,(False,False))}
 
     def display_score(self, screen: pygame.surface):
         score_text =pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 15)

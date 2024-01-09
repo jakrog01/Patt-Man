@@ -29,8 +29,14 @@ class Clairvoyant(AbstractGhost):
         self.__inverter = {"Left": "Right", "Right": "Left", "Up": "Down", "Down":"Up"}
         self.__speed = 1
 
-    def draw(self, win):
-        win.blit(self.__picture, (self.__x - 16, self.__y-16))
+    def draw(self, win: pygame.surface):
+        flip = (False, False)
+        if self.direction == "Left":
+            flip = (True, False)
+        
+        fliped_image = pygame.transform.flip(self.__picture, flip[0], flip[1])
+
+        win.blit(fliped_image, (self.__x - 16, self.__y-16))
 
     def inverse_direction(self):
         self.__direction = self.__inverter[self.__direction]

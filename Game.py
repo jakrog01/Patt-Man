@@ -4,12 +4,14 @@ from Board.Board import Board
 from Board.Maps.FUWMap import FUWMap, start_points, ghost_respawn_point
 from Sprite.Pacman import Pacman
 from Sprite.Traper import Traper
+
 from Sprite.GhostFactory import GhostFactory
 from Sprite.GhostMakers.HunterMaker import HunterMaker
 from Sprite.GhostMakers.IgnoramusMaker import IgnoramusMaker
 from Sprite.GhostMakers.ClairvoyantMaker import ClairvoyantMaker
 from Sprite.GhostMakers.TraperMaker import TraperMaker
 from Sprite.Graphics.SpecialGraphicsLoaderVisitor import SpecialGraphicLoaderVisitor
+
 from Movement.GhostsStrategies.GhostHouseStrategy import GhostHouseStrategy
 from Movement.GhostsStrategies.GhostDispersionStrategy import GhostDispersionStrategy
 from Movement.GhostsStrategies.GhostLeaveHouseStrategy import GhostLeaveHouseStrategy
