@@ -1,12 +1,12 @@
 from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrategy
 
 class HunterNormalStrategy(AbstractGhostStrategy):
-    def choose_direction(self, hunter, pacman, tile_size, map, *args):
+    def choose_direction(self, hunter, player, tile_size, map, *args):
         hunter_x = int(hunter.x // tile_size)
         hunter_y = int(hunter.y // tile_size)
 
-        destination_x = int(pacman.x // tile_size)
-        destination_y = int(pacman.y // tile_size)
+        destination_x = int(player.x // tile_size)
+        destination_y = int(player.y // tile_size)
 
         distance = 1000000
         new_direction = "None"

@@ -1,21 +1,21 @@
 from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrategy
 
 class ClairvoyantNormalStrategy(AbstractGhostStrategy):
-    def choose_direction(self, clairvoyant, pacman, tile_size, map, *args):
+    def choose_direction(self, clairvoyant, player, tile_size, map, *args):
 
         clairvoyant_x = int(clairvoyant.x // tile_size)
         clairvoyant_y = int(clairvoyant.y // tile_size)
 
-        destination_x = int(pacman.x // tile_size)
-        destination_y = int(pacman.y // tile_size)
+        destination_x = int(player.x // tile_size)
+        destination_y = int(player.y // tile_size)
 
-        if pacman.direction == "Up":
+        if player.direction == "Up":
             destination_y -= 4
-        elif pacman.direction == "Down":
+        elif player.direction == "Down":
             destination_y += 4
-        elif pacman.direction == "Right":
+        elif player.direction == "Right":
             destination_x += 4
-        elif pacman.direction == "Left":
+        elif player.direction == "Left":
             destination_x -= 4
 
         distance = 1000000

@@ -1,10 +1,10 @@
-from Movement.PacmanMovementCommands.UpMovement import UpCommand
-from Movement.PacmanMovementCommands.DownMovement import DownCommand
-from Movement.PacmanMovementCommands.RightMovement import RightCommand
-from Movement.PacmanMovementCommands.LeftMovement import LeftCommand
-from Movement.PacmanMovementCommands.AbstractPacmanMovementCommand import AbstractPacmanMovementCommand
+from Movement.PlayerMovementCommands.UpMovement import UpCommand
+from Movement.PlayerMovementCommands.DownMovement import DownCommand
+from Movement.PlayerMovementCommands.RightMovement import RightCommand
+from Movement.PlayerMovementCommands.LeftMovement import LeftCommand
+from Movement.PlayerMovementCommands.AbstractPlayerMovementCommand import AbstractPlayerMovementCommand
 
-class PacmanMovementManager():
+class PlayerMovementManager():
     def __init__(self, map, tile_size, ghosts):
         self.__map = map
         self.__tile_size = tile_size
@@ -16,7 +16,7 @@ class PacmanMovementManager():
         self.add_move_direction("Right", RightCommand(1))
         self.add_move_direction("Left", LeftCommand(1))
     
-    def add_move_direction(self, command:str, movement: AbstractPacmanMovementCommand):
+    def add_move_direction(self, command:str, movement: AbstractPlayerMovementCommand):
         self.__dict[command]= movement
         
     def move(self, character):

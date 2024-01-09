@@ -1,6 +1,6 @@
 from abc import ABC
 
-class AbstractPacmanMovementCommand(ABC):
+class AbstractPlayerMovementCommand(ABC):
     def __init__():
         raise NotImplemented
     

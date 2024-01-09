@@ -2,7 +2,7 @@ from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrateg
 from random import randint
 
 class GhostPanicStrategy(AbstractGhostStrategy):
-    def choose_direction(self, ghost, pacman, tile_size, map, distx, disty):
+    def choose_direction(self, ghost, player, tile_size, map, distx, disty):
 
         ghost_x = int(ghost.x // tile_size)
         ghost_y = int(ghost.y // tile_size)

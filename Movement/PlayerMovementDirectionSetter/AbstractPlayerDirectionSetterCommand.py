@@ -1,5 +1,5 @@
 from abc import ABC
 
-class AbstractPacmanDirectionSetterCommand(ABC):    
+class AbstractPlayerDirectionSetterCommand(ABC):    
     def __call__():
         raise NotImplemented

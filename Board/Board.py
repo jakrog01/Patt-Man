@@ -34,12 +34,12 @@ class Board():
                 self.__tile_drawer.draw_tile(win, self.__map[i][j], i, j)
 
     @staticmethod
-    def check_collisions(pacman, list, tile_size):
-        if pacman.state == "Predator":
-            pacman.counter = pacman.counter + 1
+    def check_collisions(player, list, tile_size):
+        if player.state == "Predator":
+            player.counter = player.counter + 1
 
-        x = int(pacman.x // tile_size)
-        y = int(pacman.y // tile_size)
+        x = int(player.x // tile_size)
+        y = int(player.y // tile_size)
 
         for ghost in list:
             ghost_x = (ghost.x // tile_size)
@@ -49,16 +49,16 @@ class Board():
                 return True
             elif ghost_x == x and ghost_y == y and ghost.state == "Prey":
                 ghost.enter_dead_mode()
-                pacman.kill_streak = pacman.kill_streak + 1
-                pacman.score = pacman.score + pacman.kill_streak * 200
+                player.kill_streak = player.kill_streak + 1
+                player.score = player.score + player.kill_streak * 200
         return False
     
     @staticmethod
-    def place_in_starting_positions(pacman, ghost_list, tile_size, position_list):
-        pacman.y = int((position_list[0][0]-1) * tile_size) + 11
-        pacman.x = int((position_list[0][1]-1) * tile_size) + 11
+    def place_in_starting_positions(player, ghost_list, tile_size, position_list):
+        player.y = int((position_list[0][0]-1) * tile_size) + 11
+        player.x = int((position_list[0][1]-1) * tile_size) + 11
 
-        pacman.direction = "Right"
+        player.direction = "Right"
 
         for index, ghost in enumerate(ghost_list):
             ghost.y = int((position_list[index+1][0] - 1) * tile_size) + 11

@@ -1,7 +1,6 @@
 import pygame
 from Sprite.AbstractGhost import AbstractGhost
 from Movement.GhostsStrategies.ClairvoyantStrategies.ClairvoyantNormalStrategy import ClairvoyantNormalStrategy
-from Movement.GhostsStrategies.GhostDispersionStrategy import GhostDispersionStrategy
 from Movement.GhostsStrategies.GhostHouseStrategy import GhostHouseStrategy
 from Movement.GhostsStrategies.GhostPanicStrategy import GhostPanicStrategy
 from Movement.GhostsStrategies.GhostRespawnStrategy import GhostRespawnStrategy

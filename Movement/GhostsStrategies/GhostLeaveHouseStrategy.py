@@ -1,7 +1,7 @@
 from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrategy
 
 class GhostLeaveHouseStrategy(AbstractGhostStrategy):
-    def choose_direction(self, ghost, pacman, tile_size, map, distx, disty):
+    def choose_direction(self, ghost, player, tile_size, map, distx, disty):
         ghost_x = int(ghost.x // tile_size)
         ghost_y = int(ghost.y // tile_size)
         ghost.direction = "Up"

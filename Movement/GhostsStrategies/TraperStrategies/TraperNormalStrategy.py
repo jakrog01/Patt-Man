@@ -1,7 +1,7 @@
 from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrategy
 
 class TraperNormalStrategy(AbstractGhostStrategy):
-    def choose_direction(self, traper, pacman, tile_size, map, *args):
+    def choose_direction(self, traper, player, tile_size, map, *args):
 
         traper_x = int(traper.x // tile_size)
         traper_y = int(traper.y // tile_size)
@@ -9,20 +9,20 @@ class TraperNormalStrategy(AbstractGhostStrategy):
         hunter_x = int(traper.hunter.x // tile_size)
         hunter_y = int(traper.hunter.y // tile_size)
 
-        pacman_x = int(pacman.x // tile_size)
-        pacman_y = int(pacman.y // tile_size)
+        player_x = int(player.x // tile_size)
+        player_y = int(player.y // tile_size)
 
-        if pacman.direction == "Up":
-            pacman_y -= 2
-        elif pacman.direction == "Down":
-            pacman_y += 2
-        elif pacman.direction == "Right":
-            pacman_x += 2
-        elif pacman.direction == "Left":
-            pacman_x -= 2
+        if player.direction == "Up":
+            player_y -= 2
+        elif player.direction == "Down":
+            player_y += 2
+        elif player.direction == "Right":
+            player_x += 2
+        elif player.direction == "Left":
+            player_x -= 2
 
-        x_diff = pacman_x - hunter_x
-        y_diff = pacman_y - hunter_y
+        x_diff = player_x - hunter_x
+        y_diff = player_y - hunter_y
 
         destination_x = hunter_x + 2*x_diff
         destination_y = hunter_y + 2*y_diff

@@ -1,9 +1,9 @@
 from abc import ABC,abstractmethod
-from Sprite.Pacman import Pacman
+from Sprite.Player import Player
 from Sprite.Hunter import Hunter
 
 class AbstractMovementVisitor(ABC):
 
     @abstractmethod
-    def visitPacman(self, pacman: Pacman):
+    def visit_player(self, pacman: Player):
         raise NotImplemented

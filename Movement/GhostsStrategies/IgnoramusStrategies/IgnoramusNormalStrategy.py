@@ -2,18 +2,18 @@ from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrateg
 from math import sqrt
 
 class IgnoramusNormalStrategy(AbstractGhostStrategy):
-    def choose_direction(self, ignoramus, pacman, tile_size, map, distx, disty):
+    def choose_direction(self, ignoramus, player, tile_size, map, distx, disty):
         ignoramus_x = int(ignoramus.x // tile_size)
         ignoramus_y = int(ignoramus.y // tile_size)
 
-        pacman_x = int(pacman.x // tile_size)
-        pacman_y = int(pacman.y // tile_size)
+        player_x = int(player.x // tile_size)
+        player_y = int(player.y // tile_size)
 
-        distance_to_pacman = (ignoramus_x - pacman_x) **2 + (ignoramus_y + pacman_y)**2
+        distance_to_player = (ignoramus_x - player_x) **2 + (ignoramus_y + player_y)**2
 
-        if sqrt(distance_to_pacman) > 8:
-            destination_x = int(pacman.x // tile_size)
-            destination_y = int(pacman.y // tile_size)
+        if sqrt(distance_to_player) > 8:
+            destination_x = int(player.x // tile_size)
+            destination_y = int(player.y // tile_size)
         else:
             destination_x = distx
             destination_y = disty

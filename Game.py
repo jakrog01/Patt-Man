@@ -2,7 +2,7 @@ import pygame
 import random
 from Board.Board import Board
 from Board.Maps.FUWMap import FUWMap, start_points, ghost_respawn_point
-from Sprite.Pacman import Pacman
+from Sprite.Player import Player
 from Sprite.Traper import Traper
 
 from Sprite.GhostFactory import GhostFactory
@@ -17,11 +17,10 @@ from Movement.GhostsStrategies.GhostDispersionStrategy import GhostDispersionStr
 from Movement.GhostsStrategies.GhostLeaveHouseStrategy import GhostLeaveHouseStrategy
 from Movement.ChooseDirectionVisitor import ChooseDirectionVisitor
 from Movement.MovementVisitor import MovementVisitor
-from Movement.PacmanMovementDirectionSetter.PacmanMovementSetter import PacmanMovementDirectionSetter
+from Movement.PlayerMovementDirectionSetter.PlayerMovementSetter import PlayerMovementDirectionSetter
 
 
 pygame.init()
-
 used_map = FUWMap
 
 WIDTH = 630
@@ -32,7 +31,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 map = Board(used_map, TILE_SIZE)
-player = Pacman(0, 0, TILE_SIZE)
+player = Player(0, 0, TILE_SIZE)
 graphic_loader = SpecialGraphicLoaderVisitor()
 
 ghost_factory = GhostFactory()
@@ -54,7 +53,7 @@ Board.place_in_starting_positions(player, ghosts, TILE_SIZE, start_points)
 
 movement_visitor = MovementVisitor(used_map, TILE_SIZE, ghosts)
 choose_direction_visitor = ChooseDirectionVisitor(used_map, TILE_SIZE, player)
-direction_setter = PacmanMovementDirectionSetter(player)
+direction_setter = PlayerMovementDirectionSetter(player)
 
 run = True
 dead = False

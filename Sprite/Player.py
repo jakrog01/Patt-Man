@@ -1,6 +1,6 @@
 import pygame
 
-class Pacman():
+class Player():
     def __init__(self, x:int, y:int, tile_size:int):
         self.__x = x
         self.__y = y
@@ -29,8 +29,6 @@ class Pacman():
         rot = self.__rotation[self.direction][0]
         flip = self.__rotation[self.direction][1]
 
-        print(rot, flip)
-
         rotated_image = pygame.transform.rotate(self.__pictures[graphic], rot)
         fliped_image = pygame.transform.flip(rotated_image, flip[0], flip[1])
         rotated_rect = fliped_image.get_rect(center=(self.__x, self.__y))
@@ -56,13 +54,13 @@ class Pacman():
         screen.blit(lives_box, (550, self.__tile_size * 30 + 5))
 
     def accept_director_changer_visitor(self, visitor):
-        visitor.visitPacman(self)
+        visitor.visit_player(self)
 
     def accept_movement_visitor(self, visitor):
-        visitor.visitPacman(self)
+        visitor.visit_player(self)
     
     def accept_graphic_loader_visitor(self, visitor):
-        visitor.visit_pacman(self)
+        visitor.visit_player(self)
 
     @property
     def state(self):
