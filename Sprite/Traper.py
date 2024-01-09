@@ -1,23 +1,23 @@
 import pygame
+
 from Sprite.AbstractGhost import AbstractGhost
+from Sprite.Hunter import Hunter
+
 from Movement.GhostsStrategies.TraperStrategies.TraperNormalStrategy import TraperNormalStrategy
-from Movement.GhostsStrategies.GhostDispersionStrategy import GhostDispersionStrategy
 from Movement.GhostsStrategies.GhostHouseStrategy import GhostHouseStrategy
 from Movement.GhostsStrategies.GhostPanicStrategy import GhostPanicStrategy
 from Movement.GhostsStrategies.GhostRespawnStrategy import GhostRespawnStrategy
 
+
 class Traper(AbstractGhost):
-    def __init__(self, x, y, respawn_point, tile_size, map, picture):
+    def __init__(self, x: int, y: int, respawn_point: tuple, tile_size: int, map: list, picture: pygame.image):
         self.__x = x
         self.__y = y
         self.__respawn_y = respawn_point[0]
         self.__respawn_x = respawn_point[1]
 
-        self.__strategy = GhostHouseStrategy()
         self.__direction = "Right"
-        self.__tile_size = tile_size
-        self.__map = map
-        self.__score = 0
+        self.__strategy = GhostHouseStrategy()
 
         self.__normal_picture = picture
         self.__dead_picture = None
@@ -26,10 +26,9 @@ class Traper(AbstractGhost):
 
         self.__state = "Home"
         self.__inverter = {"Left": "Right", "Right": "Left", "Up": "Down", "Down":"Up"}
-
         self.__speed = 1
 
-    def load_grpahics(self, panic, dead):
+    def load_grpahics(self, panic: pygame.image, dead: pygame.image):
         self.__panic_picture = panic
         self.__dead_picture = dead
     
@@ -44,11 +43,11 @@ class Traper(AbstractGhost):
         self.__speed = 0.5
 
     def enter_predator_mode(self):
-        if self.state == "Prey":
-            self.inverse_direction()
-
         self.__x = round(self.__x)
         self.__y = round(self.__y)
+
+        if self.state == "Prey":
+            self.inverse_direction()
 
         self.__strategy = TraperNormalStrategy()
         self.__picture = self.__normal_picture
@@ -64,22 +63,19 @@ class Traper(AbstractGhost):
         self.__state = "Dead"
         self.__speed = 1
 
-    def draw(self, win):
+    def draw(self, win: pygame.surface):
         win.blit(self.__picture, (self.__x - 16, self.__y-16))
 
-    def set_hunter(self, hunter):
+    def set_hunter(self, hunter: Hunter):
         self.__hunter = hunter
 
     @property
     def respawn_x(self):
         return self.__respawn_x
+    
     @property
     def respawn_y(self):
         return self.__respawn_y
-    
-    @property
-    def picture(self):
-        return self.__picture
     
     @property
     def dead_picture(self):
@@ -92,9 +88,13 @@ class Traper(AbstractGhost):
     @property
     def panic_picture(self):
         return self.__panic_picture
+
+    @property
+    def picture(self):
+        return self.__picture
     
     @picture.setter
-    def picture(self, newpicture):
+    def picture(self, newpicture: pygame.image):
         self.__picture = newpicture
 
     @property
@@ -106,23 +106,23 @@ class Traper(AbstractGhost):
         return self.__x
     
     @x.setter
-    def x(self, newx):
-        self.__x = newx
+    def x(self, new_x):
+        self.__x = new_x
     
     @property
     def y(self):
         return self.__y
     
     @y.setter
-    def y(self, newy):
-        self.__y = newy
+    def y(self, new_y):
+        self.__y = new_y
 
     @property
     def direction(self):
         return self.__direction
     
     @direction.setter
-    def direction(self, new_direction):
+    def direction(self, new_direction: str):
         self.__direction = new_direction
 
     @property
@@ -138,7 +138,7 @@ class Traper(AbstractGhost):
         return self.__score
 
     @score.setter
-    def score(self, newscore):
+    def score(self, newscore: int):
         self.__score = newscore
 
     @property
@@ -146,7 +146,7 @@ class Traper(AbstractGhost):
         return self.__state
     
     @state.setter
-    def state(self, new_state):
+    def state(self, new_state: str):
         self.__state = new_state
 
     @property

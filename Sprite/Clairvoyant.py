@@ -27,7 +27,6 @@ class Clairvoyant(AbstractGhost):
 
         self.__state = "Home"
         self.__inverter = {"Left": "Right", "Right": "Left", "Up": "Down", "Down":"Up"}
-
         self.__speed = 1
 
     def draw(self, win):
@@ -49,6 +48,7 @@ class Clairvoyant(AbstractGhost):
 
         if self.state == "Prey":
             self.inverse_direction()
+
         self.__strategy = ClairvoyantNormalStrategy()
         self.__picture = self.__normal_picture
         self.__state = "Predator"

@@ -16,7 +16,6 @@ class SpecialGraphicLoaderVisitor():
 
         self.__four = pygame.transform.scale(pygame.image.load(f"Sprite\\Graphics\\Pacman\\4.png"), (32,32))
 
-
     def visit_pacman(self, pacman: Pacman):
         pacman.load_graphics(self.__one, self.__two, self.__three, self.__four)
 

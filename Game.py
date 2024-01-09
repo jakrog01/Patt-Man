@@ -8,15 +8,17 @@ from Sprite.GhostMakers.HunterMaker import HunterMaker
 from Sprite.GhostMakers.IgnoramusMaker import IgnoramusMaker
 from Sprite.GhostMakers.ClairvoyantMaker import ClairvoyantMaker
 from Sprite.GhostMakers.TraperMaker import TraperMaker
+from Sprite.Graphics.SpecialGraphicsLoaderVisitor import SpecialGraphicLoaderVisitor
 from Movement.GhostsStrategies.GhostHouseStrategy import GhostHouseStrategy
 from Movement.GhostsStrategies.GhostDispersionStrategy import GhostDispersionStrategy
 from Movement.GhostsStrategies.GhostLeaveHouseStrategy import GhostLeaveHouseStrategy
 from Movement.ChooseDirectionVisitor import ChooseDirectionVisitor
 from Movement.MovementVisitor import MovementVisitor
-from Sprite.Graphics.SpecialGraphicsLoaderVisitor import SpecialGraphicLoaderVisitor
 from Movement.PacmanMovementDirectionSetter.PacmanMovementSetter import PacmanMovementDirectionSetter
 
+
 pygame.init()
+
 WIDTH = 630
 HEIGHT = 670
 TILE_SIZE= WIDTH / len(FUWMap) 
@@ -26,10 +28,7 @@ clock = pygame.time.Clock()
 
 map = Board(FUWMap, TILE_SIZE)
 player = Pacman(0, 0, TILE_SIZE)
-
 graphic_loader = SpecialGraphicLoaderVisitor()
-
-graphic_loader.visit_pacman(player)
 
 ghost_factory = GhostFactory()
 ghost_factory.add("HUNTER", HunterMaker())
@@ -37,15 +36,14 @@ ghost_factory.add("CLAIRVOYANT", ClairvoyantMaker())
 ghost_factory.add("TRAPER", TraperMaker())
 ghost_factory.add("IGNORAMUS", IgnoramusMaker())
 ghosts_to_make = ["HUNTER", "CLAIRVOYANT", "TRAPER", "IGNORAMUS"]
-
 ghosts = []
 for index, key in enumerate(ghosts_to_make):
     ghosts.append(ghost_factory.produce(key, [start_points[index+1][0], start_points[index+1][1], ghost_respawn_point, TILE_SIZE, FUWMap]))
-
 for ghost in ghosts:
     if isinstance(ghost, Traper):
         ghost.set_hunter(ghosts[0])    
     ghost.accept_graphic_loader_visitor(graphic_loader)
+player.accept_graphic_loader_visitor(graphic_loader)
 
 Board.place_in_starting_positions(player, ghosts, TILE_SIZE, start_points)
 
@@ -56,7 +54,6 @@ direction_setter = PacmanMovementDirectionSetter(player)
 run = True
 dead = False
 exit = True
-
 change_strategy_time = 2000
 last_strategy_change_time = pygame.time.get_ticks()
 

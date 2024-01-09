@@ -51,6 +51,7 @@ class Hunter(AbstractGhost):
 
         if self.state == "Prey":
             self.inverse_direction()
+
         self.__strategy = HunterNormalStrategy()
         self.__picture = self.__normal_picture
         self.__state = "Predator"

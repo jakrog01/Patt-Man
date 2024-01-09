@@ -12,7 +12,7 @@ from Tiles.BarierTile import BarierTile
 from Movement.GhostsStrategies.GhostLeaveHouseStrategy import GhostLeaveHouseStrategy
 
 class Board():
-    def __init__(self, map, tile_size) -> None:
+    def __init__(self, map, tile_size):
         self.__map = map
         
         self.__tile_drawer = TileDispatch(tile_size, (255,255,255))

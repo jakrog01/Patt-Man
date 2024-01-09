@@ -52,6 +52,7 @@ class Ignoramus(AbstractGhost):
 
         if self.state == "Prey":
             self.inverse_direction()
+
         self.__strategy = IgnoramusNormalStrategy()
         self.__picture = self.__normal_picture
         self.__state = "Predator"
