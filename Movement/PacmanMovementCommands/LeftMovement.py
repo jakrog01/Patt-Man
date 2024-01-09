@@ -11,11 +11,15 @@ class LeftCommand(AbstractPacmanMovementCommand):
         if (pacman.x) % tile_size > 11:
                 pacman.x = pacman.x - self.__speed
         
-        elif map[y][x-1] == 0 or map[y][x-1] == 9 or map[y][x-1] == 8:
+        elif map[y][x-1] == 0 or map[y][x-1] == 9 or map[y][x-1] == 8 or map[y][x-1] == 10:
                 pacman.x = pacman.x - self.__speed
 
         if map[y][x] == 9 and (pacman.x + 20) % tile_size == 0:
             pacman.score = pacman.score + 10
+            map[y][x] = 0
+        
+        elif map[y][x] == 10 and (pacman.x + 20) % tile_size == 0:
+            pacman.score = pacman.score + 1000
             map[y][x] = 0
         
         elif map[y][x] == 8 and (pacman.x + 7) % tile_size == 0:

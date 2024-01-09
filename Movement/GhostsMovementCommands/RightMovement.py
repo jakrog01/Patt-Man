@@ -8,5 +8,5 @@ class RightCommand(AbstractGhostMovementCommand):
         if ghost.x % tile_size < 11:
             ghost.x = ghost.x + speed    
 
-        elif map[y][x+1] == 0 or map[y][x+1] == 9 or map[y][x+1] == 8:
+        elif map[y][x+1] == 0 or map[y][x+1] == 9 or map[y][x+1] == 8 or map[y][x+1] == 10:
             ghost.x = ghost.x + speed

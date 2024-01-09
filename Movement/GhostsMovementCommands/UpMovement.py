@@ -8,6 +8,6 @@ class UpCommand(AbstractGhostMovementCommand):
         if (ghost.y) % tile_size > 11:
                 ghost.y = ghost.y - speed
 
-        elif map[y-1][x] == 0 or map[y-1][x] == 9 or map[y+1][x] == 8 or map[y-1][x] == 7:
+        elif map[y-1][x] == 0 or map[y-1][x] == 9 or map[y+1][x] == 8 or map[y-1][x] == 7 or map[y-1][x] == 10:
                 ghost.y = ghost.y - speed
     

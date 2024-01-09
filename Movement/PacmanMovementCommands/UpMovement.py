@@ -11,11 +11,15 @@ class UpCommand(AbstractPacmanMovementCommand):
         if (pacman.y) % tile_size > 11:
                 pacman.y = pacman.y - self.__speed
 
-        elif map[y-1][x] == 0 or map[y-1][x] == 9 or map[y-1][x] == 8:
+        elif map[y-1][x] == 0 or map[y-1][x] == 9 or map[y-1][x] == 8 or map[y-1][x] == 10:
                 pacman.y = pacman.y - self.__speed
 
         if map[y][x] == 9 and (pacman.y + 20) % tile_size == 0:
             pacman.score = pacman.score + 10
+            map[y][x] = 0
+        
+        if map[y][x] == 10 and (pacman.y + 20) % tile_size == 0:
+            pacman.score = pacman.score + 1000
             map[y][x] = 0
 
         elif map[y][x] == 8 and (pacman.y + 7) % tile_size == 0:

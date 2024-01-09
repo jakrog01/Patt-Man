@@ -12,28 +12,28 @@ class HunterNormalStrategy(AbstractGhostStrategy):
         new_direction = "None"
 
         if hunter.direction != "Left":
-            if map[hunter_y][hunter_x+1] == 9 or map[hunter_y][hunter_x+1] == 0 or map[hunter_y][hunter_x+1] == 8:
+            if map[hunter_y][hunter_x+1] == 9 or map[hunter_y][hunter_x+1] == 0 or map[hunter_y][hunter_x+1] == 8 or map[hunter_y][hunter_x+1] == 10:
                 new_distance = ((hunter_x+1) - destination_x)**2 + (hunter_y - destination_y)**2
                 if new_distance < distance:
                     new_direction = "Right"
                     distance = new_distance
         
         if hunter.direction != "Right":
-            if map[hunter_y][hunter_x-1] == 9 or map[hunter_y][hunter_x-1] == 0  or map[hunter_y][hunter_x-1] == 8:
+            if map[hunter_y][hunter_x-1] == 9 or map[hunter_y][hunter_x-1] == 0  or map[hunter_y][hunter_x-1] == 8 or map[hunter_y][hunter_x-1] == 10:
                 new_distance = ((hunter_x-1) - destination_x)**2 + (hunter_y - destination_y)**2
                 if new_distance < distance:
                     new_direction = "Left"
                     distance = new_distance
         
         if hunter.direction != "Up":
-            if map[hunter_y+1][hunter_x] == 9 or map[hunter_y+1][hunter_x] == 0 or map[hunter_y+1][hunter_x] == 8:
+            if map[hunter_y+1][hunter_x] == 9 or map[hunter_y+1][hunter_x] == 0 or map[hunter_y+1][hunter_x] == 8 or map[hunter_y+1][hunter_x] == 10:
                 new_distance = (hunter_x - destination_x)**2 + ((hunter_y+1) - destination_y)**2
                 if new_distance < distance:
                     new_direction = "Down"
                     distance = new_distance
         
         if hunter.direction != "Down":
-            if map[hunter_y-1][hunter_x] == 9 or map[hunter_y-1][hunter_x] == 0 or map[hunter_y-1][hunter_x] == 7 or map[hunter_y-1][hunter_x] == 8:
+            if map[hunter_y-1][hunter_x] == 9 or map[hunter_y-1][hunter_x] == 0 or map[hunter_y-1][hunter_x] == 7 or map[hunter_y-1][hunter_x] == 8 or map[hunter_y-1][hunter_x] == 10:
                 new_distance = (hunter_x - destination_x)**2 + ((hunter_y-1) - destination_y)**2
                 if new_distance < distance:
                     new_direction = "Up"

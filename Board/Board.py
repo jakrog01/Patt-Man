@@ -8,6 +8,7 @@ from Tiles.RightUpPerpendicularTile import RightUpPerpendicularTile
 from Tiles.BoostTile import BoostTile
 from Tiles.PointTile import PointTile
 from Tiles.BarierTile import BarierTile
+from Tiles.CherryTile import CherryTile
 
 from Movement.GhostsStrategies.GhostLeaveHouseStrategy import GhostLeaveHouseStrategy
 
@@ -25,6 +26,7 @@ class Board():
         self.__tile_drawer.add_tile_type(7, BarierTile())
         self.__tile_drawer.add_tile_type(8, BoostTile())
         self.__tile_drawer.add_tile_type(9, PointTile())
+        self.__tile_drawer.add_tile_type(10, CherryTile())
     
     def draw_map(self, win):
         for i in range(30):

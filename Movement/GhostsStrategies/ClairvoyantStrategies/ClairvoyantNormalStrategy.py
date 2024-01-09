@@ -22,28 +22,28 @@ class ClairvoyantNormalStrategy(AbstractGhostStrategy):
         new_direction = "None"
 
         if clairvoyant.direction != "Left":
-            if map[clairvoyant_y][clairvoyant_x+1] == 9 or map[clairvoyant_y][clairvoyant_x+1] == 0 or map[clairvoyant_y][clairvoyant_x+1] == 8:
+            if map[clairvoyant_y][clairvoyant_x+1] == 9 or map[clairvoyant_y][clairvoyant_x+1] == 0 or map[clairvoyant_y][clairvoyant_x+1] == 8 or map[clairvoyant_y][clairvoyant_x+1] == 10:
                 new_distance = ((clairvoyant_x+1) - destination_x)**2 + (clairvoyant_y - destination_y)**2
                 if new_distance < distance:
                     new_direction = "Right"
                     distance = new_distance
         
         if clairvoyant.direction != "Right":
-            if map[clairvoyant_y][clairvoyant_x-1] == 9 or map[clairvoyant_y][clairvoyant_x-1] == 0 or map[clairvoyant_y][clairvoyant_x-1] == 8:
+            if map[clairvoyant_y][clairvoyant_x-1] == 9 or map[clairvoyant_y][clairvoyant_x-1] == 0 or map[clairvoyant_y][clairvoyant_x-1] == 8 or map[clairvoyant_y][clairvoyant_x-1] == 10:
                 new_distance = ((clairvoyant_x-1) - destination_x)**2 + (clairvoyant_y - destination_y)**2
                 if new_distance < distance:
                     new_direction = "Left"
                     distance = new_distance
         
         if clairvoyant.direction != "Up":
-            if map[clairvoyant_y+1][clairvoyant_x] == 9 or map[clairvoyant_y+1][clairvoyant_x] == 0 or map[clairvoyant_y+1][clairvoyant_x] == 8:
+            if map[clairvoyant_y+1][clairvoyant_x] == 9 or map[clairvoyant_y+1][clairvoyant_x] == 0 or map[clairvoyant_y+1][clairvoyant_x] == 8 or map[clairvoyant_y+1][clairvoyant_x] == 10: 
                 new_distance = (clairvoyant_x - destination_x)**2 + ((clairvoyant_y+1) - destination_y)**2
                 if new_distance < distance:
                     new_direction = "Down"
                     distance = new_distance
         
         if clairvoyant.direction != "Down":
-            if map[clairvoyant_y-1][clairvoyant_x] == 9 or map[clairvoyant_y-1][clairvoyant_x] == 0 or map[clairvoyant_y-1][clairvoyant_x] == 7 or map[clairvoyant_y-1][clairvoyant_x] == 8:
+            if map[clairvoyant_y-1][clairvoyant_x] == 9 or map[clairvoyant_y-1][clairvoyant_x] == 0 or map[clairvoyant_y-1][clairvoyant_x] == 7 or map[clairvoyant_y-1][clairvoyant_x] == 8 or map[clairvoyant_y-1][clairvoyant_x] == 10:
                 new_distance = (clairvoyant_x - destination_x)**2 + ((clairvoyant_y-1) - destination_y)**2
                 if new_distance < distance:
                     new_direction = "Up"

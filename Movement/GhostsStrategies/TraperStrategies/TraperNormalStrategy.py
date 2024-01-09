@@ -31,28 +31,28 @@ class TraperNormalStrategy(AbstractGhostStrategy):
         new_direction = "None"
 
         if traper.direction != "Left":
-            if map[traper_y][traper_x+1] == 9 or map[traper_y][traper_x+1] == 0 or map[traper_y][traper_x+1] == 8:
+            if map[traper_y][traper_x+1] == 9 or map[traper_y][traper_x+1] == 0 or map[traper_y][traper_x+1] == 8  or map[traper_y][traper_x+1] == 10:
                 new_distance = ((traper_x+1) - destination_x)**2 + (traper_y - destination_y)**2
                 if new_distance < distance:
                     new_direction = "Right"
                     distance = new_distance
         
         if traper.direction != "Right":
-            if map[traper_y][traper_x-1] == 9 or map[traper_y][traper_x-1] == 0 or map[traper_y][traper_x-1] == 8:
+            if map[traper_y][traper_x-1] == 9 or map[traper_y][traper_x-1] == 0 or map[traper_y][traper_x-1] == 8 or map[traper_y][traper_x-1] == 10:
                 new_distance = ((traper_x-1) - destination_x)**2 + (traper_y - destination_y)**2
                 if new_distance < distance:
                     new_direction = "Left"
                     distance = new_distance
         
         if traper.direction != "Up":
-            if map[traper_y+1][traper_x] == 9 or map[traper_y+1][traper_x] == 0 or map[traper_y+1][traper_x] == 8:
+            if map[traper_y+1][traper_x] == 9 or map[traper_y+1][traper_x] == 0 or map[traper_y+1][traper_x] == 8 or map[traper_y+1][traper_x] == 10:
                 new_distance = (traper_x - destination_x)**2 + ((traper_y+1) - destination_y)**2
                 if new_distance < distance:
                     new_direction = "Down"
                     distance = new_distance
         
         if traper.direction != "Down":
-            if map[traper_y-1][traper_x] == 9 or map[traper_y-1][traper_x] == 0 or map[traper_y-1][traper_x] == 7 or map[traper_y-1][traper_x] == 8:
+            if map[traper_y-1][traper_x] == 9 or map[traper_y-1][traper_x] == 0 or map[traper_y-1][traper_x] == 7 or map[traper_y-1][traper_x] == 8 or map[traper_y-1][traper_x] == 10:
                 new_distance = (traper_x - destination_x)**2 + ((traper_y-1) - destination_y)**2
                 if new_distance < distance:
                     new_direction = "Up"

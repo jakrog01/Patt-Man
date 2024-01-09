@@ -1,4 +1,5 @@
 import pygame
+import random
 from Board.Board import Board
 from Board.Maps.FUWMap import FUWMap, start_points, ghost_respawn_point
 from Sprite.Pacman import Pacman
@@ -19,14 +20,16 @@ from Movement.PacmanMovementDirectionSetter.PacmanMovementSetter import PacmanMo
 
 pygame.init()
 
+used_map = FUWMap
+
 WIDTH = 630
 HEIGHT = 670
-TILE_SIZE= WIDTH / len(FUWMap) 
+TILE_SIZE= WIDTH / len(used_map) 
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
-map = Board(FUWMap, TILE_SIZE)
+map = Board(used_map, TILE_SIZE)
 player = Pacman(0, 0, TILE_SIZE)
 graphic_loader = SpecialGraphicLoaderVisitor()
 
@@ -38,7 +41,7 @@ ghost_factory.add("IGNORAMUS", IgnoramusMaker())
 ghosts_to_make = ["HUNTER", "CLAIRVOYANT", "TRAPER", "IGNORAMUS"]
 ghosts = []
 for index, key in enumerate(ghosts_to_make):
-    ghosts.append(ghost_factory.produce(key, [start_points[index+1][0], start_points[index+1][1], ghost_respawn_point, TILE_SIZE, FUWMap]))
+    ghosts.append(ghost_factory.produce(key, [start_points[index+1][0], start_points[index+1][1], ghost_respawn_point, TILE_SIZE, used_map]))
 for ghost in ghosts:
     if isinstance(ghost, Traper):
         ghost.set_hunter(ghosts[0])    
@@ -47,15 +50,19 @@ player.accept_graphic_loader_visitor(graphic_loader)
 
 Board.place_in_starting_positions(player, ghosts, TILE_SIZE, start_points)
 
-movement_visitor = MovementVisitor(FUWMap, TILE_SIZE, ghosts)
-choose_direction_visitor = ChooseDirectionVisitor(FUWMap, TILE_SIZE, player)
+movement_visitor = MovementVisitor(used_map, TILE_SIZE, ghosts)
+choose_direction_visitor = ChooseDirectionVisitor(used_map, TILE_SIZE, player)
 direction_setter = PacmanMovementDirectionSetter(player)
 
 run = True
 dead = False
 exit = True
 change_strategy_time = 2000
+cherry_spawned = False
 last_strategy_change_time = pygame.time.get_ticks()
+
+cherry_time = random.randint(30000,35000)
+cherry_duration_time = random.randint(10000,20000)
 
 while run:
     events = pygame.event.get()
@@ -132,7 +139,14 @@ while run:
                 if ghost.state == "Predator":
                     ghost.strategy = GhostDispersionStrategy()
             change_strategy_time = 5000
-
+    
+    if current_time >= cherry_time and not cherry_spawned:
+        used_map[start_points[0][0] - 1][start_points[0][1] - 1] = 10
+        start_cherry = pygame.time.get_ticks()
+        cherry_spawned = True
+    
+    elif current_time - cherry_time > cherry_duration_time:
+        used_map[start_points[0][0]-1][start_points[0][1]-1] = 0
 
     if player.state == "Predator" and player.counter == 0:
         start_predator_time = pygame.time.get_ticks()
@@ -147,7 +161,6 @@ while run:
                     if ghost.state != "Home" and ghost.state != "Dead":
                         ghost.enter_predator_mode()
     
-
     if Board.check_collisions(player, ghosts, TILE_SIZE):
         player.lives = player.lives-1
         dead = True
@@ -165,7 +178,7 @@ while run:
     if run != False:
         condition = False
 
-        for line in FUWMap:
+        for line in used_map:
             if 9 in line:
                 condition = True
         run = condition
