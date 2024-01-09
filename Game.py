@@ -183,7 +183,7 @@ if exit:
         if dead:
             text = "LOST"
         else:
-            text = "WIN"
+            text = "WON"
         
         end_text = pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 80)
         end_box = end_text.render(f'YOU {text}', True, (255, 0, 0))
