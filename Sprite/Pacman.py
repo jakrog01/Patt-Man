@@ -10,6 +10,18 @@ class Pacman():
         self.__tile_size = tile_size
         self.__lives = 2
 
+        self.__state = "Prey"
+        self.__counter = 0
+        self.__kill_streak = 0
+
+    def enter_predator_mode(self):
+        self.__state = "Predator"
+        self.__kill_streak = 0
+
+    def enter_prey_mode(self):
+        self.__counter = 0
+        self.__state = "Prey"
+
     def draw(self, win):
         pygame.draw.circle(win, "yellow", (self.__x, self.__y), int(self.__tile_size//2) + 3)
     
@@ -28,7 +40,31 @@ class Pacman():
 
     def accept_movement_visitor(self, visitor):
         visitor.visitPacman(self)
+
+    @property
+    def state(self):
+        return self.__state
     
+    @state.setter
+    def state(self, new_state):
+        self.__state = new_state
+
+    @property
+    def kill_streak(self):
+        return self.__kill_streak
+    
+    @kill_streak.setter
+    def kill_streak(self, new_kill_streak):
+        self.__kill_streak = new_kill_streak
+
+    @property
+    def counter(self):
+        return self.__counter     
+    
+    @counter.setter
+    def counter(self, new_counter):
+        self.__counter = new_counter     
+
     @property
     def next_direction(self):
         return self.__next_direction
@@ -36,10 +72,6 @@ class Pacman():
     @next_direction.setter
     def next_direction(self, newdirection):
         self.__next_direction = newdirection
-
-    @property
-    def direction(self):
-        return self.__direction
     
     @property
     def lives(self):
@@ -48,6 +80,10 @@ class Pacman():
     @lives.setter
     def lives(self, value):
         self.__lives = value
+    
+    @property
+    def direction(self):
+        return self.__direction
     
     @direction.setter
     def direction(self, newdirection):

@@ -4,16 +4,24 @@ class UpCommand(AbstractPacmanMovementCommand):
     def __init__(self, speed):
         self.__speed = speed
     
-    def __call__(self, pacman, map, tile_size):
+    def __call__(self, pacman, map, tile_size, ghosts):
         y = int(pacman.y // tile_size)
         x = int(pacman.x // tile_size)
         
         if (pacman.y) % tile_size > 11:
                 pacman.y = pacman.y - self.__speed
 
-        elif map[y-1][x] == 0 or map[y-1][x] == 9:
+        elif map[y-1][x] == 0 or map[y-1][x] == 9 or map[y-1][x] == 8:
                 pacman.y = pacman.y - self.__speed
 
         if map[y][x] == 9 and (pacman.y + 7) % tile_size == 0:
             pacman.score = pacman.score + 10
+            map[y][x] = 0
+
+        elif map[y][x] == 8 and (pacman.y + 7) % tile_size == 0:
+            for ghost in ghosts:
+                if ghost.state != "Home" and ghost.state != "Dead":
+                    ghost.enter_prey_mode()
+                    
+            pacman.enter_predator_mode()
             map[y][x] = 0

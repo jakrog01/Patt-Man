@@ -10,14 +10,14 @@ class GhostsMovementManager():
         self.__tile_size = tile_size
         
         self.__dict = {}
-        self.add_move_direction("Up", UpCommand(1))
-        self.add_move_direction("Down", DownCommand(1))
-        self.add_move_direction("Right", RightCommand(1))
-        self.add_move_direction("Left", LeftCommand(1))
-    
+        self.add_move_direction("Up", UpCommand())
+        self.add_move_direction("Down", DownCommand())
+        self.add_move_direction("Right", RightCommand())
+        self.add_move_direction("Left", LeftCommand())
+
     def add_move_direction(self, command:str, movement: AbstractGhostMovementCommand):
         self.__dict[command]= movement
         
     def move(self, character):
         if character.direction in self.__dict:
-            self.__dict[character.direction](character, self.__map, self.__tile_size)
+            self.__dict[character.direction](character, self.__map, self.__tile_size, character.speed)

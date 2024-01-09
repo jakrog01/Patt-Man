@@ -1,29 +1,31 @@
 import pygame
 from Sprite.AbstractGhost import AbstractGhost
-from Movement.GhostsStrategies.HunterStrategies.HunterNormalStrategy import HunterNormalStrategy
+from Movement.GhostsStrategies.ClairvoyantStrategies.ClairvoyantNormalStrategy import ClairvoyantNormalStrategy
 from Movement.GhostsStrategies.GhostDispersionStrategy import GhostDispersionStrategy
+from Movement.GhostsStrategies.GhostHouseStrategy import GhostHouseStrategy
 from Movement.GhostsStrategies.GhostPanicStrategy import GhostPanicStrategy
 from Movement.GhostsStrategies.GhostRespawnStrategy import GhostRespawnStrategy
 
-class Hunter(AbstractGhost):
+
+class Clairvoyant(AbstractGhost):
     def __init__(self, x, y, respawn_point, tile_size, map, picture):
         self.__x = x
         self.__y = y
         self.__respawn_y = respawn_point[0]
         self.__respawn_x = respawn_point[1]
         
-        self.__strategy = HunterNormalStrategy()
-        self.__direction = "None"
+        self.__strategy = GhostHouseStrategy()
+        self.__direction = "Right"
         self.__tile_size = tile_size
         self.__map = map
         self.__score = 0
-        
+
         self.__normal_picture = picture
         self.__dead_picture = None
         self.__panic_picture = None
         self.__picture = self.__normal_picture
 
-        self.__state = "Predator"
+        self.__state = "Home"
         self.__inverter = {"Left": "Right", "Right": "Left", "Up": "Down", "Down":"Up"}
 
         self.__speed = 1
@@ -31,13 +33,9 @@ class Hunter(AbstractGhost):
     def draw(self, win):
         win.blit(self.__picture, (self.__x - 16, self.__y-16))
 
-    def load_grpahics(self, panic, dead):
-        self.__panic_picture = panic
-        self.__dead_picture = dead
-
     def inverse_direction(self):
         self.__direction = self.__inverter[self.__direction]
-
+    
     def enter_prey_mode(self):
         self.inverse_direction()
         self.__strategy = GhostPanicStrategy()
@@ -51,7 +49,7 @@ class Hunter(AbstractGhost):
 
         if self.state == "Prey":
             self.inverse_direction()
-        self.__strategy = HunterNormalStrategy()
+        self.__strategy = ClairvoyantNormalStrategy()
         self.__picture = self.__normal_picture
         self.__state = "Predator"
         self.__speed = 1
@@ -64,10 +62,11 @@ class Hunter(AbstractGhost):
         self.__picture = self.__dead_picture
         self.__state = "Dead"
         self.__speed = 1
+    
+    def load_grpahics(self, panic, dead):
+        self.__panic_picture = panic
+        self.__dead_picture = dead
 
-    def set_normal_strategy(self):
-        self.__strategy = HunterNormalStrategy()
-        
     @property
     def respawn_x(self):
         return self.__respawn_x
@@ -126,7 +125,10 @@ class Hunter(AbstractGhost):
     @strategy.setter
     def strategy(self, newstrategy):
         self.__strategy = newstrategy
-    
+
+    def set_normal_strategy(self):
+        self.__strategy = ClairvoyantNormalStrategy()
+
     @property
     def score(self):
         return self.__score
@@ -134,7 +136,7 @@ class Hunter(AbstractGhost):
     @score.setter
     def score(self, newscore):
         self.__score = newscore
-    
+
     @property
     def state(self):
         return self.__state
@@ -150,12 +152,12 @@ class Hunter(AbstractGhost):
     @speed.setter
     def speed(self, new_speed):
         self.__speed = new_speed
-
+    
     def accept_director_changer_visitor(self, visitor):
-        visitor.visit_hunter(self)
+        visitor.visit_clairvoyant(self)
 
     def accept_movement_visitor(self, visitor):
         visitor.visit_ghost(self)
-
+    
     def accept_graphic_loader_visitor(self, visitor):
         visitor.visit_ghost(self)

@@ -7,7 +7,3 @@ class AbstractMovementVisitor(ABC):
     @abstractmethod
     def visitPacman(self, pacman: Pacman):
         raise NotImplemented
-
-    @abstractmethod
-    def visitHunter(self, hubter: Hunter):
-        raise NotImplemented
