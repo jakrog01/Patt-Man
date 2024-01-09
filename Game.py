@@ -21,6 +21,11 @@ from Movement.PlayerMovementDirectionSetter.PlayerMovementSetter import PlayerMo
 
 
 pygame.init()
+
+pygame.display.set_caption('Pax-man')
+Icon = pygame.image.load(f'Sprite\\Graphics\\Player\\2.png')
+pygame.display.set_icon(Icon)
+
 used_map = FUWMap
 
 WIDTH = 630
