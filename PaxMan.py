@@ -22,12 +22,11 @@ from Movement.PlayerMovementDirectionSetter.PlayerMovementSetter import PlayerMo
 
 pygame.init()
 
-pygame.display.set_caption('Pax-man')
+pygame.display.set_caption('PaxMan')
 Icon = pygame.image.load(f'Sprite\\Graphics\\Player\\2.png')
 pygame.display.set_icon(Icon)
 
 used_map = FUWMap
-
 WIDTH = 630
 HEIGHT = 670
 TILE_SIZE= WIDTH / len(used_map) 
@@ -170,6 +169,8 @@ while run:
     if Board.check_collisions(player, ghosts, TILE_SIZE):
         player.lives = player.lives-1
         dead = True
+        used_map[start_points[0][0]-1][start_points[0][1]-1] = 0
+        
         if player.lives == 0:
             run = False
         else:
