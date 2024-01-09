@@ -19,6 +19,7 @@ class DownCommand(AbstractPacmanMovementCommand):
             map[y][x] = 0
         
         elif map[y][x] == 8 and (pacman.y-7) % tile_size == 0:
+            pacman.score = pacman.score + 50
             for ghost in ghosts:
                 if ghost.state == "Predator":
                     ghost.enter_prey_mode()
