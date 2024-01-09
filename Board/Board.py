@@ -47,6 +47,7 @@ class Board():
 
             if ghost_x == x and ghost_y == y and ghost.state == "Predator":
                 return True
+            
             elif ghost_x == x and ghost_y == y and ghost.state == "Prey":
                 ghost.enter_dead_mode()
                 player.kill_streak = player.kill_streak + 1

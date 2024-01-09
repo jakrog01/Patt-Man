@@ -163,7 +163,7 @@ while run:
         if elapsed_predator_time >= 8000:
             player.enter_prey_mode()
             for ghost in ghosts:
-                    if ghost.state != "Home" and ghost.state != "Dead":
+                    if ghost.state == "Prey":
                         ghost.enter_predator_mode()
     
     if Board.check_collisions(player, ghosts, TILE_SIZE):

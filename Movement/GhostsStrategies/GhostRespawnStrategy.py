@@ -18,6 +18,7 @@ class GhostRespawnStrategy(AbstractGhostStrategy):
         if ghost_x == ghost.respawn_x and ghost_y == ghost.respawn_y:
             ghost.enter_predator_mode()
             ghost.strategy = GhostLeaveHouseStrategy()
+            ghost.state = "Escape"
         
         
             
