@@ -10,4 +10,4 @@ pip install pygame
 You can create your own maps, similar to the one used in the program.
 It is located in the Maps subfolder of the Board folder.
 
-To run your own map, change the import in the Game.py file
+To run your own map, change the import in the Game.py file.
