@@ -45,6 +45,7 @@ ghost_factory.add("TRAPER", TraperMaker())
 ghost_factory.add("IGNORAMUS", IgnoramusMaker())
 ghosts_to_make = ["HUNTER", "CLAIRVOYANT", "TRAPER", "IGNORAMUS"]
 ghosts = []
+
 for index, key in enumerate(ghosts_to_make):
     ghosts.append(ghost_factory.produce(key, [start_points[index+1][0], start_points[index+1][1], ghost_respawn_point, TILE_SIZE, used_map]))
 for ghost in ghosts:
@@ -96,16 +97,19 @@ while run:
     player.display_lives(screen)
 
     if player.score > 150 and isinstance(ghosts[1].strategy, GhostHouseStrategy):
-        ghosts[1].state = "Predator"
+        ghosts[1].enter_predator_mode()
         ghosts[1].strategy = GhostLeaveHouseStrategy()
+        ghosts[1].state = "Escape"
 
-    elif player.score > 650 and isinstance(ghosts[2].strategy, GhostHouseStrategy):
-        ghosts[2].state = "Predator"
+    elif player.score > 750 and isinstance(ghosts[2].strategy, GhostHouseStrategy):
+        ghosts[2].enter_predator_mode()
         ghosts[2].strategy = GhostLeaveHouseStrategy()
+        ghosts[2].state = "Escape"
     
     elif player.score > 1500 and isinstance(ghosts[3].strategy, GhostHouseStrategy):
-        ghosts[3].state = "Predator"
+        ghosts[3].enter_predator_mode()
         ghosts[3].strategy = GhostLeaveHouseStrategy()
+        ghosts[3].state = "Escape"
 
     for ghost in ghosts:
         ghost.accept_director_changer_visitor(choose_direction_visitor)
