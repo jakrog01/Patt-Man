@@ -1,8 +1,11 @@
 from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrategy
 from math import sqrt
 
+from Sprite.AbstractGhost import AbstractGhost
+from Sprite.Player import Player
+
 class IgnoramusNormalStrategy(AbstractGhostStrategy):
-    def choose_direction(self, ignoramus, player, tile_size, map, distx, disty):
+    def choose_direction(self, ignoramus: AbstractGhost, player: Player, tile_size: int, map: list, distx: int, disty: int):
         ignoramus_x = int(ignoramus.x // tile_size)
         ignoramus_y = int(ignoramus.y // tile_size)
 

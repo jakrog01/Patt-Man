@@ -1,5 +1,7 @@
 import pygame
 
+from Movement.AbstractMovementVisitor import AbstractMovementVisitor
+
 class Player():
     def __init__(self, x:int, y:int, tile_size:int):
         self.__x = x
@@ -52,15 +54,6 @@ class Player():
         lives_text = pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 15)
         lives_box = lives_text.render(f'LIVES: {self.__lives}', True, (255,255,255))
         screen.blit(lives_box, (550, self.__tile_size * 30 + 5))
-
-    def accept_director_changer_visitor(self, visitor):
-        visitor.visit_player(self)
-
-    def accept_movement_visitor(self, visitor):
-        visitor.visit_player(self)
-    
-    def accept_graphic_loader_visitor(self, visitor):
-        visitor.visit_player(self)
 
     @property
     def state(self):
@@ -133,3 +126,12 @@ class Player():
     @score.setter
     def score(self, new_score : int):
         self.__score = new_score
+    
+    def accept_director_changer_visitor(self, visitor: AbstractMovementVisitor):
+        visitor.visit_player(self)
+
+    def accept_movement_visitor(self, visitor: AbstractMovementVisitor):
+        visitor.visit_player(self)
+    
+    def accept_graphic_loader_visitor(self, visitor: AbstractMovementVisitor):
+        visitor.visit_player(self)

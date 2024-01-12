@@ -1,15 +1,16 @@
 from Movement.AbstractMovementVisitor import AbstractMovementVisitor
+
 from Sprite.Player import Player
 from Sprite.Hunter import Hunter
 from Sprite.Traper import Traper
 from Sprite.Ignoramus import Ignoramus
-
 from Sprite.Clairvoyant import Clairvoyant
+
 from Movement.ChagneDirectionVisitor.CheckOpposite import check_oposite
 from Movement.ChagneDirectionVisitor.DirectionChangePossibility import check_direction_change_possibility
  
 class ChooseDirectionVisitor(AbstractMovementVisitor):
-    def __init__(self, map, title_size, player):
+    def __init__(self, map: list, title_size: int, player: Player):
         self.__map = map
         self.__title_size = title_size
         self.__player = player

@@ -1,4 +1,4 @@
-def check_oposite(direction, newdirection):
+def check_oposite(direction: str, newdirection: str) -> bool:
     directions_list = [direction, newdirection]
 
     if "Up" in directions_list and "Down" in directions_list:

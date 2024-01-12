@@ -1,7 +1,10 @@
 from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrategy
 
+from Sprite.AbstractGhost import AbstractGhost
+from Sprite.Player import Player
+
 class GhostHouseStrategy(AbstractGhostStrategy):
-    def choose_direction(self, ghost, player, tile_size, map, distx, disty):
+    def choose_direction(self, ghost: AbstractGhost, player: Player, tile_size: int, map: list, distx: int, disty: int):
         ghost_x = int(ghost.x // tile_size)
         ghost_y = int(ghost.y // tile_size)
 

@@ -1,7 +1,10 @@
 from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrategy
 
+from Sprite.AbstractGhost import AbstractGhost
+from Sprite.Player import Player
+
 class ClairvoyantNormalStrategy(AbstractGhostStrategy):
-    def choose_direction(self, clairvoyant, player, tile_size, map, *args):
+    def choose_direction(self, clairvoyant: AbstractGhost, player: Player, tile_size: int, map: list, *args):
 
         clairvoyant_x = int(clairvoyant.x // tile_size)
         clairvoyant_y = int(clairvoyant.y // tile_size)

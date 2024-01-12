@@ -1,8 +1,8 @@
 from abc import ABC
 
 class AbstractPlayerMovementCommand(ABC):
-    def __init__():
+    def __init__(self):
         raise NotImplemented
     
-    def __call__():
+    def __call__(self):
         raise NotImplemented

@@ -1,7 +1,8 @@
 from Movement.GhostsMovementCommands.AbstractGhostMovementCommand import AbstractGhostMovementCommand
+from Sprite.AbstractGhost import AbstractGhost
 
 class DownCommand(AbstractGhostMovementCommand):
-    def __call__(self, ghost, map, tile_size, speed):
+    def __call__(self, ghost: AbstractGhost, map: list, tile_size: int, speed: int|float):
         y = int(ghost.y // tile_size)
         x = int(ghost.x // tile_size)
         

@@ -5,7 +5,7 @@ from Movement.PlayerMovementCommands.LeftMovement import LeftCommand
 from Movement.PlayerMovementCommands.AbstractPlayerMovementCommand import AbstractPlayerMovementCommand
 
 class PlayerMovementManager():
-    def __init__(self, map, tile_size, ghosts):
+    def __init__(self, map: list, tile_size: int, ghosts: list):
         self.__map = map
         self.__tile_size = tile_size
         self.__ghosts = ghosts

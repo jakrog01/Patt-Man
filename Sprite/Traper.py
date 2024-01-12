@@ -3,6 +3,9 @@ import pygame
 from Sprite.AbstractGhost import AbstractGhost
 from Sprite.Hunter import Hunter
 
+from Movement.AbstractMovementVisitor import AbstractMovementVisitor
+from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrategy
+
 from Movement.GhostsStrategies.TraperStrategies.TraperNormalStrategy import TraperNormalStrategy
 from Movement.GhostsStrategies.GhostHouseStrategy import GhostHouseStrategy
 from Movement.GhostsStrategies.GhostPanicStrategy import GhostPanicStrategy
@@ -27,6 +30,15 @@ class Traper(AbstractGhost):
         self.__state = "Home"
         self.__inverter = {"Left": "Right", "Right": "Left", "Up": "Down", "Down":"Up"}
         self.__speed = 1
+
+    def draw(self, win: pygame.surface):
+        flip = (False, False)
+        if self.direction == "Left":
+            flip = (True, False)
+        
+        fliped_image = pygame.transform.flip(self.__picture, flip[0], flip[1])
+
+        win.blit(fliped_image, (self.__x - 16, self.__y-16))
 
     def load_grpahics(self, panic: pygame.image, dead: pygame.image):
         self.__panic_picture = panic
@@ -63,15 +75,6 @@ class Traper(AbstractGhost):
         self.__state = "Dead"
         self.__speed = 1
 
-    def draw(self, win: pygame.surface):
-        flip = (False, False)
-        if self.direction == "Left":
-            flip = (True, False)
-        
-        fliped_image = pygame.transform.flip(self.__picture, flip[0], flip[1])
-
-        win.blit(fliped_image, (self.__x - 16, self.__y-16))
-
     def set_hunter(self, hunter: Hunter):
         self.__hunter = hunter
 
@@ -100,8 +103,8 @@ class Traper(AbstractGhost):
         return self.__picture
     
     @picture.setter
-    def picture(self, newpicture: pygame.image):
-        self.__picture = newpicture
+    def picture(self, new_picture: pygame.image):
+        self.__picture = new_picture
 
     @property
     def hunter(self):
@@ -112,7 +115,7 @@ class Traper(AbstractGhost):
         return self.__x
     
     @x.setter
-    def x(self, new_x):
+    def x(self, new_x: int|float):
         self.__x = new_x
     
     @property
@@ -120,7 +123,7 @@ class Traper(AbstractGhost):
         return self.__y
     
     @y.setter
-    def y(self, new_y):
+    def y(self, new_y: int|float):
         self.__y = new_y
 
     @property
@@ -136,16 +139,16 @@ class Traper(AbstractGhost):
         return self.__strategy
     
     @strategy.setter
-    def strategy(self, newstrategy):
-        self.__strategy = newstrategy
+    def strategy(self, new_strategy: AbstractGhostStrategy):
+        self.__strategy = new_strategy
 
     @property
     def score(self):
         return self.__score
 
     @score.setter
-    def score(self, newscore: int):
-        self.__score = newscore
+    def score(self, new_score: int):
+        self.__score = new_score
 
     @property
     def state(self):
@@ -160,14 +163,14 @@ class Traper(AbstractGhost):
         return self.__speed
     
     @speed.setter
-    def speed(self, new_speed):
+    def speed(self, new_speed: float|int):
         self.__speed = new_speed
 
-    def accept_director_changer_visitor(self, visitor):
+    def accept_director_changer_visitor(self, visitor: AbstractMovementVisitor):
         visitor.visit_traper(self)
 
-    def accept_movement_visitor(self, visitor):
+    def accept_movement_visitor(self, visitor :AbstractMovementVisitor):
         visitor.visit_ghost(self)
     
-    def accept_graphic_loader_visitor(self, visitor):
+    def accept_graphic_loader_visitor(self, visitor: AbstractMovementVisitor):
         visitor.visit_ghost(self)

@@ -66,8 +66,8 @@ change_strategy_time = 2000
 cherry_spawned = False
 last_strategy_change_time = pygame.time.get_ticks()
 
-cherry_time = random.randint(30000,35000)
-cherry_duration_time = random.randint(10000,20000)
+cherry_time = random.randint(30000,40000)
+cherry_duration_time = random.randint(15000,25000)
 
 while run:
     events = pygame.event.get()
@@ -212,7 +212,7 @@ if exit:
         screen.blit(end_box, end_text_rect.topleft)
 
         score_text = pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 85)
-        score_box = score_text.render(f'SCORE: {player.score + player.lives*400}', True, (255, 255, 0))
+        score_box = score_text.render(f'SCORE: {player.score + player.lives * 400}', True, (255, 255, 0))
         score_text_rect = score_box.get_rect()
         score_text_rect.center = (WIDTH // 2, HEIGHT // 2 + 50)
         screen.blit(score_box, score_text_rect.topleft)

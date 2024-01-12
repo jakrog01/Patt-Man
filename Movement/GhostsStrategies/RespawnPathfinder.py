@@ -1,6 +1,6 @@
 from collections import deque
 
-def get_next_move(map, ghost_x, ghost_y, respawn_x, respawn_y):
+def get_next_move(map:list, ghost_x: int|float, ghost_y: int|float, respawn_x: int|float, respawn_y: int|float):
     rows = len(map)
     cols = len(map[0])
 

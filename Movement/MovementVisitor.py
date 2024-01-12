@@ -5,7 +5,7 @@ from Sprite.Player import Player
 from Sprite.AbstractGhost import AbstractGhost
 
 class MovementVisitor(AbstractMovementVisitor):
-    def __init__(self, map, title_size, ghosts):
+    def __init__(self, map: list, title_size: int, ghosts: list):
         self.__map = map
         self.__title_size = title_size
 

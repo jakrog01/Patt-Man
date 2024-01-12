@@ -1,8 +1,10 @@
+from Movement.GhostsMovementCommands.AbstractGhostMovementCommand import AbstractGhostMovementCommand
+
 from Movement.GhostsMovementCommands.UpMovement import UpCommand
 from Movement.GhostsMovementCommands.DownMovement import DownCommand
 from Movement.GhostsMovementCommands.RightMovement import RightCommand
 from Movement.GhostsMovementCommands.LeftMovement import LeftCommand
-from Movement.GhostsMovementCommands.AbstractGhostMovementCommand import AbstractGhostMovementCommand
+
 
 class GhostsMovementManager():
     def __init__(self, map, tile_size):
@@ -18,6 +20,6 @@ class GhostsMovementManager():
     def add_move_direction(self, command:str, movement: AbstractGhostMovementCommand):
         self.__dict[command]= movement
         
-    def move(self, character):
+    def move(self, character: str):
         if character.direction in self.__dict:
             self.__dict[character.direction](character, self.__map, self.__tile_size, character.speed)

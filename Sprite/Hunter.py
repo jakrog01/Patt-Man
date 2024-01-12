@@ -1,11 +1,15 @@
 import pygame
 from Sprite.AbstractGhost import AbstractGhost
+
+from Movement.AbstractMovementVisitor import AbstractMovementVisitor
+from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrategy
+
 from Movement.GhostsStrategies.HunterStrategies.HunterNormalStrategy import HunterNormalStrategy
 from Movement.GhostsStrategies.GhostPanicStrategy import GhostPanicStrategy
 from Movement.GhostsStrategies.GhostRespawnStrategy import GhostRespawnStrategy
 
 class Hunter(AbstractGhost):
-    def __init__(self, x, y, respawn_point, tile_size, map, picture):
+    def __init__(self, x: int, y: int, respawn_point: tuple, tile_size: int, map: list, picture: pygame.image):
         self.__x = x
         self.__y = y
         self.__respawn_y = respawn_point[0]
@@ -36,7 +40,7 @@ class Hunter(AbstractGhost):
 
         win.blit(fliped_image, (self.__x - 16, self.__y-16))
 
-    def load_grpahics(self, panic, dead):
+    def load_grpahics(self, panic: pygame.image, dead: pygame.image):
         self.__panic_picture = panic
         self.__dead_picture = dead
 
@@ -70,9 +74,6 @@ class Hunter(AbstractGhost):
         self.__picture = self.__dead_picture
         self.__state = "Dead"
         self.__speed = 1
-
-    def set_normal_strategy(self):
-        self.__strategy = HunterNormalStrategy()
         
     @property
     def respawn_x(self):
@@ -98,31 +99,31 @@ class Hunter(AbstractGhost):
         return self.__panic_picture
     
     @picture.setter
-    def picture(self, newpicture):
-        self.__picture = newpicture
+    def picture(self, new_picture: pygame.image):
+        self.__picture = new_picture
 
     @property
     def x(self):
         return self.__x
     
     @x.setter
-    def x(self, newx):
-        self.__x = newx
+    def x(self, new_x: int|float):
+        self.__x = new_x
     
     @property
     def y(self):
         return self.__y
     
     @y.setter
-    def y(self, newy):
-        self.__y = newy
+    def y(self, new_y: int|float):
+        self.__y = new_y
 
     @property
     def direction(self):
         return self.__direction
     
     @direction.setter
-    def direction(self, new_direction):
+    def direction(self, new_direction: str):
         self.__direction = new_direction
 
     @property
@@ -130,23 +131,23 @@ class Hunter(AbstractGhost):
         return self.__strategy
 
     @strategy.setter
-    def strategy(self, newstrategy):
-        self.__strategy = newstrategy
+    def strategy(self, new_strategy: AbstractGhostStrategy):
+        self.__strategy = new_strategy
     
     @property
     def score(self):
         return self.__score
 
     @score.setter
-    def score(self, newscore):
-        self.__score = newscore
+    def score(self, new_score: int|float):
+        self.__score = new_score
     
     @property
     def state(self):
         return self.__state
     
     @state.setter
-    def state(self, new_state):
+    def state(self, new_state: str):
         self.__state = new_state
 
     @property
@@ -154,14 +155,14 @@ class Hunter(AbstractGhost):
         return self.__speed
     
     @speed.setter
-    def speed(self, new_speed):
+    def speed(self, new_speed: int|float):
         self.__speed = new_speed
 
-    def accept_director_changer_visitor(self, visitor):
+    def accept_director_changer_visitor(self, visitor: AbstractMovementVisitor):
         visitor.visit_hunter(self)
 
-    def accept_movement_visitor(self, visitor):
+    def accept_movement_visitor(self, visitor: AbstractMovementVisitor):
         visitor.visit_ghost(self)
 
-    def accept_graphic_loader_visitor(self, visitor):
+    def accept_graphic_loader_visitor(self, visitor: AbstractMovementVisitor):
         visitor.visit_ghost(self)

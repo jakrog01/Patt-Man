@@ -1,5 +1,5 @@
 from abc import ABC
 
 class AbstractPlayerDirectionSetterCommand(ABC):    
-    def __call__():
+    def __call__(self):
         raise NotImplemented

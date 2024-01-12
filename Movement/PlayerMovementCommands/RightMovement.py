@@ -1,10 +1,11 @@
 from Movement.PlayerMovementCommands.AbstractPlayerMovementCommand import AbstractPlayerMovementCommand
+from Sprite.Player import Player
 
 class RightCommand(AbstractPlayerMovementCommand):
-    def __init__(self, speed):
+    def __init__(self, speed: int|float):
         self.__speed = speed
     
-    def __call__(self, player, map, tile_size, ghosts):
+    def __call__(self, player: Player, map: list, tile_size: int, ghosts: list):
         y = int(player.y // tile_size)
         x = int(player.x // tile_size)
 

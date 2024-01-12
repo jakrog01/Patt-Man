@@ -1,7 +1,10 @@
 from Movement.GhostsStrategies.AbstractGhostStrategy import AbstractGhostStrategy
 
+from Sprite.AbstractGhost import AbstractGhost
+from Sprite.Player import Player
+
 class TraperNormalStrategy(AbstractGhostStrategy):
-    def choose_direction(self, traper, player, tile_size, map, *args):
+    def choose_direction(self, traper: AbstractGhost, player: Player, tile_size: int, map: list, distx: int, disty: int):
 
         traper_x = int(traper.x // tile_size)
         traper_y = int(traper.y // tile_size)

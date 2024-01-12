@@ -11,9 +11,11 @@ from Tiles.BarierTile import BarierTile
 from Tiles.CherryTile import CherryTile
 
 from Movement.GhostsStrategies.GhostLeaveHouseStrategy import GhostLeaveHouseStrategy
+from Sprite.Player import Player
+import pygame
 
 class Board():
-    def __init__(self, map, tile_size):
+    def __init__(self, map: list, tile_size: int):
         self.__map = map
         
         self.__tile_drawer = TileDispatch(tile_size, (255,255,255))
@@ -28,13 +30,13 @@ class Board():
         self.__tile_drawer.add_tile_type(9, PointTile())
         self.__tile_drawer.add_tile_type(10, CherryTile())
     
-    def draw_map(self, win):
+    def draw_map(self, win: pygame.surface):
         for i in range(30):
             for j in range(30):
                 self.__tile_drawer.draw_tile(win, self.__map[i][j], i, j)
 
     @staticmethod
-    def check_collisions(player, list, tile_size):
+    def check_collisions(player: Player, list: list, tile_size: int) -> bool:
         if player.state == "Predator":
             player.counter = player.counter + 1
 
@@ -55,7 +57,7 @@ class Board():
         return False
     
     @staticmethod
-    def place_in_starting_positions(player, ghost_list, tile_size, position_list):
+    def place_in_starting_positions(player: Player, ghost_list: list, tile_size: int, position_list: list):
         player.y = int((position_list[0][0]-1) * tile_size) + 11
         player.x = int((position_list[0][1]-1) * tile_size) + 11
 
