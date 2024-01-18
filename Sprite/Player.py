@@ -1,5 +1,5 @@
 import pygame
-
+import os
 from Movement.AbstractMovementVisitor import AbstractMovementVisitor
 
 class Player():
@@ -46,12 +46,12 @@ class Player():
         self.__rotation = {"Right": (0, (False,False)), "Up": (90, (True, False)), "Left": (180, (False, True)), "Down": (270,(False,False))}
 
     def display_score(self, screen: pygame.surface):
-        score_text =pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 15)
+        score_text =pygame.font.Font(os.path.join('Sprite','Graphics','Grand9K Pixel.ttf'), 15)
         score_box = score_text.render(f'SCORE: {self.__score}', True, (255,255,255))
         screen.blit(score_box, (20, self.__tile_size * 30 + 5))
     
     def display_lives(self, screen: pygame.surface):
-        lives_text = pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 15)
+        lives_text = pygame.font.Font(os.path.join('Sprite','Graphics','Grand9K Pixel.ttf'), 15)
         lives_box = lives_text.render(f'LIVES: {self.__lives}', True, (255,255,255))
         screen.blit(lives_box, (550, self.__tile_size * 30 + 5))
 
@@ -122,6 +122,14 @@ class Player():
     @property
     def score(self):
         return self.__score
+    
+    @property
+    def counter(self):
+        return self.__counter
+    
+    @counter.setter
+    def counter(self, new_value: int):
+        self.__counter = new_value
     
     @score.setter
     def score(self, new_score : int):

@@ -2,6 +2,7 @@ import pygame
 import random
 from Board.Board import Board
 from Board.Maps.FUWMap import FUWMap, start_points, ghost_respawn_point
+
 from Sprite.Player import Player
 from Sprite.Traper import Traper
 
@@ -18,12 +19,12 @@ from Movement.GhostsStrategies.GhostLeaveHouseStrategy import GhostLeaveHouseStr
 from Movement.ChooseDirectionVisitor import ChooseDirectionVisitor
 from Movement.MovementVisitor import MovementVisitor
 from Movement.PlayerMovementDirectionSetter.PlayerMovementSetter import PlayerMovementDirectionSetter
-
+import os
 
 pygame.init()
 
 pygame.display.set_caption('PaxMan')
-Icon = pygame.image.load(f'Sprite\\Graphics\\Player\\2.png')
+Icon = pygame.image.load(os.path.join('Sprite','Graphics','Player','2.png'))
 pygame.display.set_icon(Icon)
 
 used_map = FUWMap
@@ -130,7 +131,6 @@ while run:
                 freeze = False
                 dead = False
 
-
     current_time = pygame.time.get_ticks()
     elapsed_time = current_time - last_strategy_change_time
 
@@ -180,6 +180,7 @@ while run:
         else:
             Board.place_in_starting_positions(player, ghosts, TILE_SIZE, start_points)
             start_freeze = pygame.time.get_ticks()
+            player.counter = 0
             freeze = True
             while freeze:
                 time = pygame.time.get_ticks()
@@ -209,13 +210,13 @@ if exit:
         else:
             text = "WON"
         
-        end_text = pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 80)
+        end_text = pygame.font.Font(os.path.join('Sprite','Graphics','Grand9K Pixel.ttf'), 80)
         end_box = end_text.render(f'YOU {text}', True, (255, 0, 0))
         end_text_rect = end_box.get_rect()
         end_text_rect.center = (WIDTH // 2, HEIGHT // 2 - 55)
         screen.blit(end_box, end_text_rect.topleft)
 
-        score_text = pygame.font.Font('Sprite/Graphics/Grand9K Pixel.ttf', 85)
+        score_text = pygame.font.Font(os.path.join('Sprite','Graphics','Grand9K Pixel.ttf'), 85)
         score_box = score_text.render(f'SCORE: {player.score + player.lives * 400}', True, (255, 255, 0))
         score_text_rect = score_box.get_rect()
         score_text_rect.center = (WIDTH // 2, HEIGHT // 2 + 50)
