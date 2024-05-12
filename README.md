@@ -13,4 +13,7 @@ It is located in the Maps subfolder of the Board folder.
 To run your own map, change the import in the Game.py file.
 
 ### Game window
-![Paxman](https://github.com/jakrog01/Pax-Man/assets/141222606/35ecda81-d0a4-49cd-8760-6a66f1c0ddd3)
+### Result
+<p align="center">
+  <img src="https://github.com/jakrog01/Pax-Man/assets/141222606/35ecda81-d0a4-49cd-8760-6a66f1c0ddd3" alt="animated" />
+</p>
