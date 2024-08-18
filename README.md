@@ -1,4 +1,4 @@
-#Patt-man
+# Patt-man
 > Successful people follow successful patterns. ~Sterling W. Sill
 
 Patt-man is a game inspired by the classic Pac-Man, developed using modern design patterns. The application utilizes several design patterns, including Strategy, Dispatcher, Visitor, and Factory. Patt-man is not just an entertaining game but also an excellent example of practical design pattern implementation.
